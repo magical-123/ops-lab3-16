@@ -1,0 +1,5 @@
+Starting lab3-b0-lbd.service - /srv/lab3/bin/lbd...
+Started lab3-b0-lbd.service - /srv/lab3/bin/lbd.
+2026/11/24 01:04:15 lbd 监听 127.0.0.1:8080（管理接口 127.0.0.1:8090）；rr；健康检查 /readyz 每 1s，超时 500ms，fall 3、rise 2；被动摘除 false；事件写入 data/lbd-events.csv
+2026/11/24 01:04:36 127.0.0.1:8101 added init=down
+2026/11/24 01:05:38 127.0.0.1:8101 up 连续成功 2 次

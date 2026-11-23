@@ -1,0 +1,59 @@
+{
+  "inputs": [
+    "runs/b0-one-20261123T170415Z",
+    "runs/b0-extended-20261123T170836Z"
+  ],
+  "selection_rule": "Maximum ok/(end_unix-start_unix) among stages preceding the first http_err+timeout+net_err > 0; every preceding stage must have dropped=0.",
+  "rounding_rule": "C=0.7*U without preliminary rounding; P=10*floor(4*C/10); BASE=P/10; CD=2*C. This is the group's explicit rounding convention.",
+  "selected": {
+    "run": "runs/b0-extended-20261123T170836Z",
+    "steps_csv": "runs/b0-extended-20261123T170836Z/steps.csv",
+    "step": "1",
+    "target_rps": "120",
+    "start_unix": "1795453800",
+    "end_unix": "1795453820",
+    "duration_seconds": "20",
+    "counts": {
+      "sent": 2461,
+      "ok": 2461,
+      "http_err": 0,
+      "timeout": 0,
+      "net_err": 0,
+      "dropped": 0
+    },
+    "error_count": 0,
+    "ok_rps_from_counts": "123.05",
+    "p99_ms": "509.83",
+    "lag_p99_ms": "1.06",
+    "gen_cpu_pct": "2"
+  },
+  "first_error": {
+    "run": "runs/b0-extended-20261123T170836Z",
+    "steps_csv": "runs/b0-extended-20261123T170836Z/steps.csv",
+    "step": "2",
+    "target_rps": "140",
+    "start_unix": "1795453820",
+    "end_unix": "1795453840",
+    "duration_seconds": "20",
+    "counts": {
+      "sent": 2698,
+      "ok": 2495,
+      "http_err": 199,
+      "timeout": 4,
+      "net_err": 0,
+      "dropped": 0
+    },
+    "error_count": 203,
+    "ok_rps_from_counts": "124.75",
+    "p99_ms": "1561.41",
+    "lag_p99_ms": "1.07",
+    "gen_cpu_pct": "2"
+  },
+  "U": "123.05",
+  "C": "86.135",
+  "P": "340",
+  "BASE": "34",
+  "CD": "172.27",
+  "PLAN": "34@120s,34~340@30s,340@300s,340~34@60s,34@120s",
+  "plan_duration_seconds": 630
+}

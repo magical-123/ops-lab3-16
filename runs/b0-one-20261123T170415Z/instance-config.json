@@ -1,0 +1,22 @@
+{
+  "addr": "127.0.0.1:8101",
+  "version": "v1",
+  "work": 1000000,
+  "pool": 32,
+  "db_ms": 2,
+  "pool_timeout": "1s",
+  "sync": "each",
+  "sync_interval": "1s",
+  "data": "/srv/lab3/data/inst-8101",
+  "warmup": "1m0s",
+  "drain_delay": "2s",
+  "report_max": 0,
+  "leak_kb": 0,
+  "cgroup": "/sys/fs/cgroup/system.slice/lab3-inst-8101.service",
+  "go_version": "go1.27.4",
+  "gomaxprocs": 1,
+  "gogc": "",
+  "gomemlimit": "",
+  "pid": 24542,
+  "started": "2026-11-24T01:04:36+08:00"
+}

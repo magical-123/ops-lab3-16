@@ -1,0 +1,7 @@
+Starting lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1...
+Started lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1.
+2026/11/24 01:04:15 scaler：固定 1 个实例；实例 25% CPU、128M 内存、核 1；拉镜像 20s；决策周期 15s；日志在 /srv/lab3/data
+2026/11/24 01:04:15 127.0.0.1:8101 v1 created 补足到 1 个
+2026/11/24 01:04:36 127.0.0.1:8101 v1 started 进程已启动，预热中
+2026/11/24 01:05:39 负载开始于 01:05:39；定时表从这时算起
+2026/11/24 01:05:39 127.0.0.1:8101 v1 ready lbd 判为健康

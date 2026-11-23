@@ -1,0 +1,7 @@
+Prepared UTC: 2026-11-23T17:04:15+00:00
+Source commit: 95c00ff040ea5dd66220fc9c50b7d7f884edbc64
+Guide B0: one instance, CPUQuota=25%, AllowedCPUs=1, MemoryMax=128M, MemorySwapMax=0.
+Control side: CPU0. Default enrolld args: -warmup 60s -work 1000000.
+Plan: 20,40,60,80,100 requests/s, each 20s, GET /api/courses/1 through lbd.
+Select largest zero-error stage before the first error stage; if no errors, extend probing.
+C=0.7*observed upper; P=4*C rounded down to a multiple of 10; baseline=P/10.

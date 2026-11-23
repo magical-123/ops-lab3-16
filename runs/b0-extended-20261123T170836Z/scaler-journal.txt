@@ -1,0 +1,43 @@
+Starting lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1...
+Started lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1.
+2026/11/24 01:04:15 scaler：固定 1 个实例；实例 25% CPU、128M 内存、核 1；拉镜像 20s；决策周期 15s；日志在 /srv/lab3/data
+2026/11/24 01:04:15 127.0.0.1:8101 v1 created 补足到 1 个
+2026/11/24 01:04:36 127.0.0.1:8101 v1 started 进程已启动，预热中
+2026/11/24 01:05:39 负载开始于 01:05:39；定时表从这时算起
+2026/11/24 01:05:39 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:07:21 停止全部实例…
+Stopping lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1...
+2026/11/24 01:07:21 127.0.0.1:8101 v1 stopped SIGKILL
+lab3-b0-scaler.service: Deactivated successfully.
+Stopped lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1.
+Starting lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1...
+Started lab3-b0-scaler.service - /srv/lab3/bin/scaler -mode fixed -replicas 1 -cpus 1.
+2026/11/24 01:08:36 scaler：固定 1 个实例；实例 25% CPU、128M 内存、核 1；拉镜像 20s；决策周期 15s；日志在 /srv/lab3/data
+2026/11/24 01:08:36 负载开始于 01:05:39；定时表从这时算起
+2026/11/24 01:08:36 127.0.0.1:8101 v1 created 补足到 1 个
+2026/11/24 01:08:57 127.0.0.1:8101 v1 started 进程已启动，预热中
+2026/11/24 01:10:00 负载开始于 01:10:00；定时表从这时算起
+2026/11/24 01:10:00 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:10:33 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:10:35 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:10:41 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:10:43 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:10:46 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:10:48 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:10:51 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:10:53 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:10:56 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:10:58 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:11:02 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:11:04 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:11:07 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:11:10 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:11:13 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:11:16 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:11:20 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:11:23 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:11:26 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:11:30 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:11:33 127.0.0.1:8101 v1 unready lbd 判为不健康
+2026/11/24 01:11:36 127.0.0.1:8101 v1 ready lbd 判为健康
+2026/11/24 01:11:39 127.0.0.1:8101 v1 unready lbd 判为不健康
