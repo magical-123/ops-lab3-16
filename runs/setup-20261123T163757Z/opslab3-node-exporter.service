@@ -1,0 +1,16 @@
+[Unit]
+Description=Lab3 node_exporter (loopback)
+After=network.target
+
+[Service]
+User=lab3-monitor
+Group=lab3-monitor
+WorkingDirectory=/srv/lab3
+CPUAffinity=0
+ExecStart=/srv/lab3/tools/node_exporter --web.listen-address=127.0.0.1:9100
+Restart=on-failure
+RestartSec=3s
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Lab3 Prometheus (loopback, tmpfs)
+After=network.target
+
+[Service]
+User=lab3-monitor
+Group=lab3-monitor
+WorkingDirectory=/srv/lab3
+CPUAffinity=0
+ExecStartPre=/usr/bin/mkdir -p /dev/shm/lab3-prom
+ExecStart=/srv/lab3/tools/prometheus --config.file=/srv/lab3/deploy/prometheus.yml --storage.tsdb.path=/dev/shm/lab3-prom --web.listen-address=127.0.0.1:9090
+Restart=on-failure
+RestartSec=3s
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

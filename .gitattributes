@@ -4,3 +4,6 @@ Makefile   text eol=lf
 *.go       text eol=lf
 *.yml      text eol=lf
 *.txt      text eol=lf
+
+# Preserve raw experiment evidence byte-for-byte across Windows and Linux.
+runs/** -text

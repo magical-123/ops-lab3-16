@@ -1,0 +1,22 @@
+{
+  "addr": "127.0.0.1:8081",
+  "version": "v1",
+  "work": 200000,
+  "pool": 32,
+  "db_ms": 2,
+  "pool_timeout": "1s",
+  "sync": "each",
+  "sync_interval": "1s",
+  "data": "/srv/lab3/data/setup-smoke",
+  "warmup": "0s",
+  "drain_delay": "2s",
+  "report_max": 0,
+  "leak_kb": 0,
+  "cgroup": "/sys/fs/cgroup/system.slice/opslab3-setup-smoke.service",
+  "go_version": "go1.27.4",
+  "gomaxprocs": 1,
+  "gogc": "",
+  "gomemlimit": "",
+  "pid": 19892,
+  "started": "2026-11-24T00:44:30+08:00"
+}

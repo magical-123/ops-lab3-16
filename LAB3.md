@@ -1,4 +1,4 @@
-# 实验 3 记录：第 <组号> 组
+# 实验 3 记录：第 16 组
 
 评分时依据本文件和 `runs/` 中的原始数据核对。本文件中的每一个数值，都须能在某个 `runs/<名字>/` 的文件中找到：表格用 `scripts/table.sh` 生成或从 `summary.md` 中复制后粘贴，其他数值注明出处（例如“`runs/b2-cpu/summary.md` 缺口表第 1 行”）。不要只贴截图。将 `<填写>` 替换为本组的内容。
 
@@ -8,15 +8,23 @@
 
 | 项 | 内容 |
 |---|---|
-| 小组 | 第 <组号> 组 |
-| 仓库地址 | <https://github.com/…> |
-| 主机 | <云厂商与规格名，例如某云的 2 vCPU 4 GB 通用型> |
-| CPU | <`lscpu` 的 Model name；vCPU 数> |
-| 内存与 swap | <`free -m` 的 total；`swapon --show` 的输出，没有 swap 就写“无”> |
-| 操作系统、内核、systemd | <`/etc/os-release` 的 PRETTY_NAME；`uname -r`；`systemctl --version` 第一行> |
-| cgroup | <`stat -fc %T /sys/fs/cgroup` 的输出；`cat /sys/fs/cgroup/cgroup.controllers` 的输出> |
-| Go、Prometheus、node_exporter | <`go version`；`tools/prometheus --version` 第一行；`tools/node_exporter --version` 第一行> |
-| 分核 | 实例：<如 1>；loadgen、lbd、scaler、Prometheus、node_exporter：<如 0> |
+| 小组 | 第 16 组 |
+| 仓库地址 | <https://github.com/magical-123/ops-lab3-16> |
+| 主机 | 华为云 ECS，华东-上海一，通用计算增强型 `c6s.large.2`，2 vCPU / 4 GiB，40 GiB 通用型 SSD，按需计费 |
+| CPU | Intel(R) Xeon(R) Gold 6278C CPU @ 2.60GHz；2 vCPU（虚拟机报告 1 插槽 × 1 核 × 2 线程，不能据此推断宿主机的完整物理拓扑） |
+| 内存与 swap | `free -m` 的 Mem total 为 3531 MiB；无 swap |
+| 操作系统、内核、systemd | Ubuntu 24.04.4 LTS；`6.8.0-136-generic`；`systemd 255 (255.4-1ubuntu8.16)` |
+| cgroup | `cgroup2fs`；控制器为 `cpuset cpu io memory hugetlb pids rdma misc` |
+| Go、Prometheus、node_exporter | `go version go1.27.4 linux/amd64`；Prometheus `3.13.4`；node_exporter `1.12.1` |
+| 分核 | B/C/D 约定：全部 scaler 实例使用 CPU1，loadgen、lbd、scaler、Prometheus、node_exporter 使用 CPU0；监控亲和已生效，其余进程按任务启动时设置。任务 A 按对应步骤设置，不全局固定 GOMAXPROCS 或单核亲和。 |
+
+环境验收于 **2026-11-24（北京时间）** 完成，证据目录为 `runs/setup-20261123T163757Z/`（目录时间使用 UTC）。样例代码基于提交 `087ef1efdb0a1a75b694b64b42aa56eab9a378cf`，`make build test fmt-check vet` 全部通过；工具包已通过仓库固定的 SHA256 校验。系统与工具原始信息见 `environment.txt`，构建检查见 `build-test.log`，监控账号的最终配置检查见 `promtool-check-final.log`。
+
+已通过临时 enrolld 实例验证就绪、配置、读接口，以及 `CPUQuota=25%`、`AllowedCPUs=1`、`MemoryMax=128M`、`MemorySwapMax=0` 的实际 cgroup 值；证据见同目录的 `smoke-*` 文件。这是环境冒烟检查，没有运行正式压测，也不代替 A/B/C/D 或 B0 数据。临时实例已停止，当前仅两个监控服务运行；`targets-final.json` 中 node 为 UP、enrolld/lbd 为 DOWN，符合尚未启动实验服务的状态。
+
+监控使用开机自启的 `opslab3-prometheus`、`opslab3-node-exporter` 服务，只监听 `127.0.0.1:9090/9100`，Prometheus 数据位于 `/dev/shm/lab3-prom`，重启会丢失。公网入站仅开放 TCP 22，SSH 必须公钥认证；具体使用、串行实验与关机恢复方法见 [主机使用说明](docs/host-setup.md)。B0 单实例容量及统一负载参数仍待测量。
+
+在仓库根目录核验原始证据：`(cd runs/setup-20261123T163757Z && sha256sum -c SHA256SUMS)`。
 
 ## 2. 任务 A：配额，节流与 OOM
 

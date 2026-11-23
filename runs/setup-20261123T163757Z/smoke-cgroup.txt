@@ -1,0 +1,5 @@
+CPUQuotaPerSecUSec=250ms
+AllowedCPUs=1
+MemoryMax=134217728
+MemorySwapMax=0
+ActiveState=active

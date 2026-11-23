@@ -1,0 +1,3 @@
+Starting opslab3-setup-smoke.service - /srv/lab3/bin/enrolld -addr 127.0.0.1:8081 -data /srv/lab3/data/setup-smoke -warmup 0s...
+Started opslab3-setup-smoke.service - /srv/lab3/bin/enrolld -addr 127.0.0.1:8081 -data /srv/lab3/data/setup-smoke -warmup 0s.
+2026/11/24 00:44:30 enrolld v1 监听 127.0.0.1:8081；GOMAXPROCS=1；cgroup /sys/fs/cgroup/system.slice/opslab3-setup-smoke.service；预热 0s；读：work=200000、pool=32、db-ms=2；写：sync=each

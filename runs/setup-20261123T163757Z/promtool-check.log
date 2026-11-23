@@ -1,0 +1,4 @@
+Checking deploy/prometheus.yml
+  WARNING: file "data/targets.json" for file_sd in scrape job "instances" does not exist
+ SUCCESS: deploy/prometheus.yml is valid prometheus config file syntax
+
