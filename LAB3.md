@@ -30,48 +30,152 @@
 
 ### 2.1 A1 配额算术
 
-预测（测量之前写）：配额 0.5 核、周期 100 ms 时，1 个和 2 个线程跑满，每个线程每个周期运行多久、被停多久？本机上 enrolld 的 GOMAXPROCS 会是几，为什么？<填写>
+预测（测量之前写）：配额 0.5 核、周期 100 ms 时，1 个和 2 个线程跑满，每个线程每个周期运行多久、被停多久？本机上 enrolld 的 GOMAXPROCS 会是几，为什么？
+
+**1 个线程跑满时：**
+- 每个线程每周期运行：50ms（独占全部配额）
+- 每个线程每周期被停：50ms（用完配额后等待下一周期）
+- 节流比例：50%
+
+**2 个线程跑满时：**
+- 每个线程每周期运行：25ms（50ms 配额均分给 2 个线程）
+- 每个线程每周期被停：75ms（用完 25ms 后等待 75ms 到下一周期）
+- 节流比例：75%
+
+**GOMAXPROCS 预测：2**
+
+理由：根据 Go 1.25+ 的规则，`GOMAXPROCS = min(物理核数, 绑核数, cgroup配额向上取整)`，但下限 ≥ 2（主机核数 > 1 时）。本机 2 vCPU，任务 A 未设置 `AllowedCPUs` 因此可用全部核心，cgroup 配额 50% = 0.5 核向上取整为 1 核，计算得 min(2, 2, 1) = 1，但触发下限规则，最终 GOMAXPROCS = 2。
+
+**关键预期：** 2 个线程时虽然 GOMAXPROCS=2 允许并行执行，但配额只有 50ms/100ms，两个线程会竞争这有限的配额，导致每个线程被节流的时间（75ms）远大于 1 个线程时（50ms），节流比例从 50% 升高到 75%。这说明在配额受限的场景下，多线程不仅不会提高性能，反而会因竞争配额导致更严重的节流。
 
 两次 `-burn` 的输出：
 
 ```text
-<粘贴>
+cgroup：/sys/fs/cgroup/system.slice/run-r0bd453030e314cddad4f4ed1134462d5.scope
+cpu.max：配额 0.50 核，周期 100ms（每个周期最多 50 ms CPU 时间）
+GOMAXPROCS=2，忙线程 1 个，计数 10.0 秒
+实际用核 0.50；周期 100 个，被节流 100 个（100%）；被停共 5.04 秒（按 CPU 累计）
+每个线程每个周期被停：实测 50.4 ms，算术 50.0 ms
+
+cgroup：/sys/fs/cgroup/system.slice/run-r47ee191577824035a8e623040aa0a0ab.scope
+cpu.max：配额 0.50 核，周期 100ms（每个周期最多 50 ms CPU 时间）
+GOMAXPROCS=2，忙线程 2 个，计数 10.0 秒
+实际用核 0.50；周期 100 个，被节流 100 个（100%）；被停共 14.95 秒（按 CPU 累计）
+每个线程每个周期被停：实测 74.8 ms，算术 75.0 ms
 ```
 
 | 线程数 | 周期数 | 被节流的周期 | 实际用核 | 每线程每周期被停（实测） | 算术 |
 |---|---|---|---|---|---|
-| 1 | <填写> | <填写> | <填写> | <填写> | <填写> |
-| 2 | <填写> | <填写> | <填写> | <填写> | <填写> |
+| 1 | 100 | 100 | 0.50 | 50.4 ms | 50.0 ms |
+| 2 | 100 | 100 | 0.50 | 74.8 ms | 75.0 ms |
 
 ### 2.2 A2 节流与 p99
 
 本组写的节流比例查询（与 `deploy/queries-red.txt` 一致）：
 
 ```text
-throttle_ratio      <填写>
+throttle_ratio      (rate(cgroup_cpu_throttled_periods_total{job="enrolld"}[${window}])) / (rate(cgroup_cpu_periods_total{job="enrolld"}[${window}]))
 ```
 
-配额 100% 时测得的每请求 CPU：<填写> ms（`runs/<名字>/red.csv` 的 `cpu_ms_per_req`）；据此选定的到达率：<填写> 请求/秒，平均约 <填写> 核。
+配额 100% 时测得的每请求 CPU：4.3 ms（`runs/a2-base/red.csv` 的 `cpu_ms_per_req`，阶段 1 为 4.33 ms、阶段 2 为 4.25 ms，取平均值）；据此选定的到达率：93 请求/秒，平均约 0.40 核（93 × 4.29ms = 399ms ，约 0.40 核）。
 
-预测（配额改为 50% 之前写）：平均用量低于配额，p99 会不会变？节流比例大约多少？<填写>
+预测（配额改为 50% 之前写）：
+
+**p99 是否会变化？** 预测会显著增大。虽然平均 CPU 用量约 0.40 核低于 0.5 核配额，但 CPU 配额是**瞬时硬限制**而非平均限制。每个 100ms 周期只能使用 50ms，当多个请求并发到达时，GOMAXPROCS=2 允许 2 个工作线程同时处理请求，可能在单个周期内瞬间耗尽 50ms 配额。根据 A1 实验，2 个线程共享 50% 配额时每个线程每周期被停 75ms。被节流的请求需要等待下一个周期才能继续执行，延迟会从基线的 ~10ms 飙升至数十毫秒甚至更高。
+
+**节流比例大约多少？** 根据泊松到达过程分析，当平均在途请求 L=0.65 时，系统中有 0、1、2、≥3 个并发请求的概率分别约为 52%、34%、11%、3%。预测节流主要发生在有 2 个或更多并发请求时（概率约 14%），考虑到这些时刻 2 个工作线程（GOMAXPROCS=2）会同时消耗 CPU，可能在单个周期内瞬间耗尽 50ms 配额。另外，由于平均 CPU 用量（0.40 核）占配额（0.50 核）的 80%，即使单请求处理也可能在高频到达时累积触发节流。综合考虑泊松突发和负载占比，保守预测节流比例约 15-25%，取中位数约 20%。
 
 各次实验的数据（`scripts/table.sh runs/<名字> ok_rps p50_ms p99_ms server_p99_ms gomaxprocs cg_limit_cores cg_cpu_cores throttle_ratio throttled_s_per_s`，每次一张表）：
 
-<粘贴表格：100%、50%、改法一、改法二>
+**a2-base (配额 100%)**
+
+| step | target_rps | ok_rps | p50_ms | p99_ms | server_p99_ms | gomaxprocs | cg_limit_cores | cg_cpu_cores | throttle_ratio | throttled_s_per_s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 30 | 28.7 | 6.81 | 8.67 | 9.95 | 2 | 1 | 0.128472 | 0 | 0 |
+| 2 | 60 | 63.5 | 6.87 | 9.92 | 9.95562 | 2 | 1 | 0.267477 | 0 | 0 |
+
+**a2-q50 (配额 50%)**
+
+| step | target_rps | ok_rps | p50_ms | p99_ms | server_p99_ms | gomaxprocs | cg_limit_cores | cg_cpu_cores | throttle_ratio | throttled_s_per_s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 93 | 95.5 | 6.95 | 42.13 | 45.8441 | 2 | 0.5 | 0.406566 | 0.292857 | 0.0770619 |
+| 2 | 93 | 90.7 | 6.99 | 39.19 | 39.8316 | 2 | 0.5 | 0.372165 | 0.185714 | 0.0496423 |
+
+**a2-q71 (改法一：配额 71%，按峰值定配额)**
+
+观测到的峰值 = 0.5 核（a2-q50 中 24% 的周期用满 50ms 配额，这些周期的 CPU 需求达到或超过配额上限）。按 L-09 第 13 页建议，新配额 = 峰值 ÷ 0.7 = 0.5 ÷ 0.7 ≈ 0.714，取 71%。
+
+| step | target_rps | ok_rps | p50_ms | p99_ms | server_p99_ms | gomaxprocs | cg_limit_cores | cg_cpu_cores | throttle_ratio | throttled_s_per_s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 93 | 95.5 | 6.93 | 11.56 | 9.96443 | 2 | 0.71 | 0.41028 | 0.0214286 | 0.00236979 |
+| 2 | 93 | 90.7 | 6.93 | 10.69 | 9.96202 | 2 | 0.71 | 0.371143 | 0 | 0 |
+
+**a2-gmp1 (改法二：配额 50%，GOMAXPROCS=1)**
+
+配额保持 50%，设置 `GOMAXPROCS=1` 限制工作线程数，避免多线程竞争配额。根据 A1 实验，单线程时每周期被停 50ms（节流 50%），低于双线程的 75%。
+
+| step | target_rps | ok_rps | p50_ms | p99_ms | server_p99_ms | gomaxprocs | cg_limit_cores | cg_cpu_cores | throttle_ratio | throttled_s_per_s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 93 | 95.5 | 8.23 | 40.61 | 38.1364 | 1 | 0.5 | 0.393578 | 0.242857 | 0.0360119 |
+| 2 | 93 | 90.7 | 8.29 | 39.92 | 21.7727 | 1 | 0.5 | 0.356861 | 0.128571 | 0.0189512 |
 
 ### 2.3 A3 OOM
 
-预测（测量之前写）：`/api/report?mb=8&ms=500` 在到达率 10、20、30 时平均和最多各有几个在途请求？RSS 大约多少？在 `MemoryMax=200M` 下会在哪一个阶段被杀？<填写>
+预测（测量之前写）：`/api/report?mb=8&ms=500` 在到达率 10、20、30 时平均和最多各有几个在途请求？RSS 大约多少？在 `MemoryMax=200M` 下会在哪一个阶段被杀？
 
-<粘贴三次实验的表格（`scripts/table.sh runs/<名字> ok_rps error_rate p99_ms inflight_avg report_inflight_max rss_max_mb heap_max_mb mem_current_max_mb mem_limit_mb`）>
+根据 Little's Law（L = λ × W），响应时间 W = 500ms：
+
+| 到达率 (req/s) | 平均在途请求 | 最大在途请求（估计） | 请求占用内存 | 考虑 GC (×2) | 加基线 20MB | RSS 估计 | 是否超过 200M |
+|--------------|------------|-------------------|------------|------------|-----------|---------|-------------|
+| 10 | 5 个 | ~8 个 | 5 × 8 = 40 MB | 80 MB | 100 MB | **~100 MB** | 否 |
+| 20 | 10 个 | ~15 个 | 10 × 8 = 80 MB | 160 MB | 180 MB | **~180 MB** | 接近边缘 |
+| 30 | 15 个 | ~20 个 | 15 × 8 = 120 MB | 240 MB | 260 MB | **~260 MB** | **是** |
+
+**预测结论：** 会在**第 3 个阶段（30 req/s）被 OOM kill**。理由：该阶段平均 15 个在途请求，占用 120 MB 内存。由于 Go GC 在堆增长到上次回收后存活数据的约 2 倍时才触发（GOGC=100 默认），在高负载下 GC 触发前，堆可能增长到 (20 基线 + 120 请求) × 2 ≈ 280 MB 的量级，显著超过 MemoryMax=200M，触发 OOM kill。保守估计实际 RSS 峰值约 260 MB。
+
+**a3-oom (MemoryMax=200M，无限制并发)**
+
+| step | target_rps | ok_rps | error_rate | p99_ms | inflight_avg | report_inflight_max | rss_max_mb | heap_max_mb | mem_current_max_mb | mem_limit_mb |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 10 | 9.1 | 0.0000 | 507.29 | 3.93333 | 7 | 138.402 | 97.3548 | 132.922 | 200 |
+| 2 | 20 | 1.8 | 0.9091 | 507.02 | - | - | - | - | - | - |
+
+实际在**第 2 阶段（20 req/s）被 OOM kill**，比预测提前。阶段 1 的 RSS 已达 138 MB，当到达率翻倍时，在途请求数增加导致内存需求超过 200M 限制。
+
+两种改法：按最坏情况定的 limit 是 **270M**（算式：以到达率 20 为目标，根据 a3-oom 阶段 1 的 report_inflight_max=7，推断阶段 2 约 14 个在途（翻倍），(20 基线 + 14 × 8MB × 2 GC) × 1.1 余量 = 268M，取 270M）；限制并发时 `-report-max` 取 **11**（依据：(20 基线 + 上限 × 8MB × 2 GC) < 200M，解得上限 < 11.25，向下取整为 11）。
+
+**a3-higher-mem (改法一：MemoryMax=270M)**
+
+| step | target_rps | ok_rps | error_rate | p99_ms | inflight_avg | report_inflight_max | rss_max_mb | heap_max_mb | mem_current_max_mb | mem_limit_mb |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 10 | 9.1 | 0.0000 | 507.33 | 4.53333 | 7 | 132.824 | 121.399 | 127.383 | 270 |
+| 2 | 20 | 6.1 | 0.6919 | 507.64 | 10 | 12 | 220.914 | 185.499 | 215.746 | 270 |
+
+阶段 1 成功，阶段 2 仍被 OOM kill（69.2% 错误率）。阶段 2 实测 RSS 达 220.9 MB，峰值在途 12 个（接近预测的 14 个），但 270M 仍不足。说明初始计算（基于阶段 1 推断）低估了实际需求。
+
+**a3-bounded (改法二：MemoryMax=200M，-report-max=11)**
+
+| step | target_rps | ok_rps | error_rate | p99_ms | inflight_avg | report_inflight_max | rss_max_mb | heap_max_mb | mem_current_max_mb | mem_limit_mb |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 10 | 9.1 | 0.0000 | 507.62 | 4.93333 | 8 | 138.387 | 113.377 | 132.941 | 200 |
+| 2 | 20 | 16.4 | 0.1742 | 507.03 | 8 | 11 | 186.535 | 153.401 | 181.16 | 200 |
+| 3 | 30 | 19.4 | 0.3756 | 507.44 | 9.8 | 11 | 186.945 | 161.445 | 181.465 | 200 |
+
+三个阶段全部完成，未被 OOM kill。`report_inflight_max` 被成功限制在 11，RSS 控制在 187 MB < 200 MB。阶段 2 和 3 有错误率（17.4% 和 37.6%），超出并发限制的请求返回 503。改法二通过限制并发从源头控制内存，虽然牺牲部分吞吐，但系统稳定。
 
 被杀的证据（`systemctl show -p ActiveState,Result,ExecMainStatus lab3-a` 和 `journalctl -u lab3-a` 的相关行，`dmesg` 或 `/var/log/kern.log` 中的 oom-kill 行）：
 
 ```text
-<粘贴>
+systemctl show 输出：
+Result=oom-kill
+ExecMainStatus=9
+ActiveState=failed
+
+dmesg 内核日志：
+[77750.699816] enrolld invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0
+[77750.700937] oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=/,mems_allowed=0,oom_memcg=/system.slice/lab3-a.service,task_memcg=/system.slice/lab3-a.service,task=enrolld,pid=273356,uid=0
 ```
 
-两种改法：按最坏情况定的 limit 是 <填写>（算式：<填写>）；限制并发时 `-report-max` 取 <填写>（依据：<填写>）。
 
 ## 3. 任务 B：伸缩控制环
 
