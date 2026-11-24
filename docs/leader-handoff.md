@@ -7,6 +7,7 @@
 - 仓库：<https://github.com/magical-123/ops-lab3-16>；主机目录 `/srv/lab3`，从 `main` 更新。
 - 华为云 ECS，2 vCPU / 4 GiB，Ubuntu 24.04.4；Go 1.27.4、Prometheus 3.13.4、node_exporter 1.12.1，systemd + cgroup v2。
 - 公网入站只开放 SSH 22，必须使用公钥认证；公网地址和登录信息由组长私下提供，不写入仓库。
+- 四位组员已有独立普通账号 `lab3_m1`～`lab3_m4`，沿用原 Lab2 账号编号及对应公钥；个人工作目录为 `~/lab3`，没有 sudo 权限。正式部署目录 `/srv/lab3` 由组长维护、组员只读；登录步骤见 [主机使用说明](host-setup.md#组员如何连接)。
 - 两个监控服务保持运行且开机自启；B0 的 lbd、scaler 和实例均已停止，主机可交接。管理、业务、监控端口全部监听回环。
 - B/C/D 控制侧用 CPU0，所有实例共用 CPU1；每实例 25% CPU、128M 内存、禁止 swap，参数为 `-warmup 60s -work 1000000`。任务 A 按自身步骤配置，不全局强制单核或 GOMAXPROCS。
 
@@ -54,6 +55,7 @@ scripts/plan.sh "$BASE" "$P"
 【Lab3 环境与 B0 已完成，可交接】
 仓库：https://github.com/magical-123/ops-lab3-16，请更新 main；主机目录 /srv/lab3。
 主机 2 核 4 GB，环境与监控已就绪。B/C/D 控制侧用 CPU0、实例共用 CPU1；A 按自己的步骤配置。
+组员账号由原 lab2_m1～lab2_m4 对应改为 lab3_m1～lab3_m4，使用原有本人私钥；登录后在 ~/lab3 准备代码和分析。公网 IP 和首次连接指纹由我私下提供。
 B0：单实例上限 U=123.05，容量线 C=86.135，峰值 P=340，平时 34，C/D 恒定负载 2C=172.27（单位均为请求/秒）。
 统一曲线：34@120s,34~340@30s,340@300s,340~34@60s,34@120s；共同参数见 deploy/group16.env。
 原始数据和依据见 LAB3.md 第3.1节、runs/b0-one-20261123T170415Z 和 runs/b0-extended-20261123T170836Z。
