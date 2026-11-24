@@ -310,7 +310,7 @@ C3 中健康检查为什么全部通过？用 `runs/<名字>/lbd-metrics-end.txt
 
 | 选做 | 完成情况与证据 |
 |---|---|
-| O1 GOMEMLIMIT | <未做 / 预测、`runs/` 目录、结论> |
+| O1 GOMEMLIMIT | **已完成**。预测：GOMEMLIMIT=170MiB 会让 GC 更激进，阶段 2 可能通过但 GC 次数增加。实验数据见 `runs/o1-gomemlimit/`。结论：GOMEMLIMIT 成功延迟 OOM（阶段 2 从被杀变为通过），RSS 控制在 171.8 MB，但 GC 频率从 1.86 升至 3.14 次/秒（增加 69%），CPU 代价增加。阶段 3 仍被杀。GOMEMLIMIT 是软限制，给 GC 目标值；MemoryMax 是硬限制，超过即 OOM kill。权衡：内存节省 vs GC 开销。 |
 | O2 两层伸缩 | <未做 / 参数、`runs/` 目录、结论> |
 | O3 扩错层 | <未做 / 预测、`runs/` 目录、结论> |
 | O4 Kubernetes 的 HPA | <未做 / 环境、配置文件、数据与结论> |
