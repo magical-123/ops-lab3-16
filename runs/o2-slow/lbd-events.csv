@@ -1,0 +1,151 @@
+unix_ms,time,backend,event,detail
+1795599063421,17:31:03.421,127.0.0.1:8101,added,init=down
+1795599063462,17:31:03.462,127.0.0.1:8102,added,init=down
+1795599125422,17:32:05.422,127.0.0.1:8101,up,连续成功 2 次
+1795599125463,17:32:05.463,127.0.0.1:8102,up,连续成功 2 次
+1795599275923,17:34:35.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599275964,17:34:35.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599277422,17:34:37.422,127.0.0.1:8101,up,连续成功 2 次
+1795599277464,17:34:37.464,127.0.0.1:8102,up,连续成功 2 次
+1795599280923,17:34:40.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599281963,17:34:41.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599283422,17:34:43.422,127.0.0.1:8101,up,连续成功 2 次
+1795599285463,17:34:45.463,127.0.0.1:8102,up,连续成功 2 次
+1795599286922,17:34:46.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599288963,17:34:48.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599292422,17:34:52.422,127.0.0.1:8101,up,连续成功 2 次
+1795599294464,17:34:54.464,127.0.0.1:8102,up,连续成功 2 次
+1795599295922,17:34:55.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599298963,17:34:58.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599300422,17:35:00.422,127.0.0.1:8101,up,连续成功 2 次
+1795599303922,17:35:03.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599305463,17:35:05.463,127.0.0.1:8102,up,连续成功 2 次
+1795599308963,17:35:08.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599311422,17:35:11.422,127.0.0.1:8101,up,连续成功 2 次
+1795599314923,17:35:14.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599316464,17:35:16.464,127.0.0.1:8102,up,连续成功 2 次
+1795599319964,17:35:19.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599321422,17:35:21.422,127.0.0.1:8101,up,连续成功 2 次
+1795599324922,17:35:24.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599327463,17:35:27.463,127.0.0.1:8102,up,连续成功 2 次
+1795599330963,17:35:30.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599332422,17:35:32.422,127.0.0.1:8101,up,连续成功 2 次
+1795599335921,17:35:35.921,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599337463,17:35:37.463,127.0.0.1:8102,up,连续成功 2 次
+1795599340964,17:35:40.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599343422,17:35:43.422,127.0.0.1:8101,up,连续成功 2 次
+1795599346923,17:35:46.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599347463,17:35:47.463,127.0.0.1:8102,up,连续成功 2 次
+1795599350963,17:35:50.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599353423,17:35:53.423,127.0.0.1:8101,up,连续成功 2 次
+1795599356922,17:35:56.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599357463,17:35:57.463,127.0.0.1:8102,up,连续成功 2 次
+1795599360963,17:36:00.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599364422,17:36:04.422,127.0.0.1:8101,up,连续成功 2 次
+1795599367463,17:36:07.463,127.0.0.1:8102,up,连续成功 2 次
+1795599367922,17:36:07.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599370963,17:36:10.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599374422,17:36:14.422,127.0.0.1:8101,up,连续成功 2 次
+1795599377463,17:36:17.463,127.0.0.1:8102,up,连续成功 2 次
+1795599377922,17:36:17.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599380963,17:36:20.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599384423,17:36:24.423,127.0.0.1:8101,up,连续成功 2 次
+1795599387463,17:36:27.463,127.0.0.1:8102,up,连续成功 2 次
+1795599387923,17:36:27.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599390963,17:36:30.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599394422,17:36:34.422,127.0.0.1:8101,up,连续成功 2 次
+1795599397464,17:36:37.464,127.0.0.1:8102,up,连续成功 2 次
+1795599397922,17:36:37.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599400963,17:36:40.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599404422,17:36:44.422,127.0.0.1:8101,up,连续成功 2 次
+1795599406476,17:36:46.476,127.0.0.1:8102,up,连续成功 2 次
+1795599407923,17:36:47.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599409963,17:36:49.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599413422,17:36:53.422,127.0.0.1:8101,up,连续成功 2 次
+1795599415463,17:36:55.463,127.0.0.1:8102,up,连续成功 2 次
+1795599416922,17:36:56.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599418964,17:36:58.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599421423,17:37:01.423,127.0.0.1:8101,up,连续成功 2 次
+1795599423463,17:37:03.463,127.0.0.1:8102,up,连续成功 2 次
+1795599424922,17:37:04.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599426963,17:37:06.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599429422,17:37:09.422,127.0.0.1:8101,up,连续成功 2 次
+1795599431463,17:37:11.463,127.0.0.1:8102,up,连续成功 2 次
+1795599432923,17:37:12.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599434964,17:37:14.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599438423,17:37:18.423,127.0.0.1:8101,up,连续成功 2 次
+1795599440463,17:37:20.463,127.0.0.1:8102,up,连续成功 2 次
+1795599441922,17:37:21.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599444963,17:37:24.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599446422,17:37:26.422,127.0.0.1:8101,up,连续成功 2 次
+1795599449923,17:37:29.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599451463,17:37:31.463,127.0.0.1:8102,up,连续成功 2 次
+1795599454964,17:37:34.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599456422,17:37:36.422,127.0.0.1:8101,up,连续成功 2 次
+1795599459923,17:37:39.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599461464,17:37:41.464,127.0.0.1:8102,up,连续成功 2 次
+1795599464963,17:37:44.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599466423,17:37:46.423,127.0.0.1:8101,up,连续成功 2 次
+1795599469922,17:37:49.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599472464,17:37:52.464,127.0.0.1:8102,up,连续成功 2 次
+1795599475962,17:37:55.962,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599476422,17:37:56.422,127.0.0.1:8101,up,连续成功 2 次
+1795599479923,17:37:59.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599481767,17:38:01.767,127.0.0.1:8102,up,连续成功 2 次
+1795599484963,17:38:04.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599486422,17:38:06.422,127.0.0.1:8101,up,连续成功 2 次
+1795599489922,17:38:09.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599491463,17:38:11.463,127.0.0.1:8102,up,连续成功 2 次
+1795599494962,17:38:14.962,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599496422,17:38:16.422,127.0.0.1:8101,up,连续成功 2 次
+1795599499921,17:38:19.921,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599502463,17:38:22.463,127.0.0.1:8102,up,连续成功 2 次
+1795599505964,17:38:25.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599506422,17:38:26.422,127.0.0.1:8101,up,连续成功 2 次
+1795599509922,17:38:29.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599512463,17:38:32.463,127.0.0.1:8102,up,连续成功 2 次
+1795599515963,17:38:35.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599517422,17:38:37.422,127.0.0.1:8101,up,连续成功 2 次
+1795599520922,17:38:40.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599521652,17:38:41.652,127.0.0.1:8102,up,连续成功 2 次
+1795599525963,17:38:45.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599528422,17:38:48.422,127.0.0.1:8101,up,连续成功 2 次
+1795599531923,17:38:51.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599533463,17:38:53.463,127.0.0.1:8102,up,连续成功 2 次
+1795599536963,17:38:56.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599539422,17:38:59.422,127.0.0.1:8101,up,连续成功 2 次
+1795599542475,17:39:02.475,127.0.0.1:8102,up,连续成功 2 次
+1795599542922,17:39:02.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599543428,17:39:03.428,127.0.0.1:8103,added,init=down
+1795599545963,17:39:05.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599549426,17:39:09.426,127.0.0.1:8101,up,连续成功 2 次
+1795599552463,17:39:12.463,127.0.0.1:8102,up,连续成功 2 次
+1795599552922,17:39:12.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599555963,17:39:15.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599559422,17:39:19.422,127.0.0.1:8101,up,连续成功 2 次
+1795599562463,17:39:22.463,127.0.0.1:8102,up,连续成功 2 次
+1795599562923,17:39:22.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599565964,17:39:25.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599569422,17:39:29.422,127.0.0.1:8101,up,连续成功 2 次
+1795599572464,17:39:32.464,127.0.0.1:8102,up,连续成功 2 次
+1795599572922,17:39:32.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599573437,17:39:33.437,127.0.0.1:8104,added,init=down
+1795599575964,17:39:35.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599579422,17:39:39.422,127.0.0.1:8101,up,连续成功 2 次
+1795599582463,17:39:42.463,127.0.0.1:8102,up,连续成功 2 次
+1795599582923,17:39:42.923,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599585963,17:39:45.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599587535,17:39:47.535,127.0.0.1:8101,up,连续成功 2 次
+1795599590922,17:39:50.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599591463,17:39:51.463,127.0.0.1:8102,up,连续成功 2 次
+1795599594964,17:39:54.964,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599595422,17:39:55.422,127.0.0.1:8101,up,连续成功 2 次
+1795599598922,17:39:58.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599599463,17:39:59.463,127.0.0.1:8102,up,连续成功 2 次
+1795599602422,17:40:02.422,127.0.0.1:8101,up,连续成功 2 次
+1795599602963,17:40:02.963,127.0.0.1:8102,down,"连续失败 3 次：Get ""http://127.0.0.1:8102/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599605430,17:40:05.430,127.0.0.1:8103,up,连续成功 2 次
+1795599605464,17:40:05.464,127.0.0.1:8102,up,连续成功 2 次
+1795599605922,17:40:05.922,127.0.0.1:8101,down,"连续失败 3 次：Get ""http://127.0.0.1:8101/readyz"": context deadline exceeded (Client.Timeout exceeded while awaiting headers)"
+1795599608422,17:40:08.422,127.0.0.1:8101,up,连续成功 2 次
+1795599635438,17:40:35.438,127.0.0.1:8104,up,连续成功 2 次

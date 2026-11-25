@@ -57,6 +57,8 @@ type options struct {
 	DownWindow string  `json:"down_window"`
 	Schedule   string  `json:"schedule"`
 	Pull       string  `json:"pull"`
+	SlowOver   int     `json:"slow_over"`
+	SlowWait   string  `json:"slow_wait"`
 	Quota      int     `json:"quota_percent"`
 	QuotaPer   string  `json:"quota_period"`
 	Memory     string  `json:"memory"`
@@ -73,7 +75,7 @@ type options struct {
 	Admin      string  `json:"admin"`
 	Started    string  `json:"started"`
 
-	sync, downWindow, pull time.Duration
+	sync, downWindow, pull, slowWait time.Duration
 	schedule               []schedEntry
 }
 
@@ -135,6 +137,8 @@ func main() {
 	flag.DurationVar(&o.downWindow, "down-window", 300*time.Second, "缩容稳定窗口（HPA 默认 300 s）")
 	flag.StringVar(&o.Schedule, "schedule", "", "定时表：负载开始后多久把最少实例数调到几，例如 +20s=4,+400s=2")
 	flag.DurationVar(&o.pull, "pull", 20*time.Second, "模拟拉镜像的时间：创建实例后等这么久才启动进程")
+	flag.IntVar(&o.SlowOver, "slow-over", 0, "慢速层阈值：同时运行的实例达到这个数后，新建的实例要多等 -slow-wait 才能启动（O2 两层伸缩）；0 表示关闭")
+	flag.DurationVar(&o.slowWait, "slow-wait", 0, "慢速层额外的等待时间，例如 240s（O2 两层伸缩）")
 	flag.IntVar(&o.Quota, "quota", 25, "每个实例的 CPU 配额（%，100 表示一个核）")
 	flag.StringVar(&o.QuotaPer, "quota-period", "", "配额周期（systemd 的 CPUQuotaPeriodSec，例如 10ms）；空表示内核默认的 100 ms")
 	flag.StringVar(&o.Memory, "memory", "128M", "每个实例的内存上限（MemoryMax）")
@@ -151,6 +155,7 @@ func main() {
 	flag.StringVar(&o.Admin, "admin", "127.0.0.1:8091", "scaler 自己的管理接口")
 	flag.Parse()
 	o.Sync, o.DownWindow, o.Pull = o.sync.String(), o.downWindow.String(), o.pull.String()
+	o.SlowWait = o.slowWait.String()
 	o.Started = time.Now().Format(time.RFC3339)
 	if err := o.check(); err != nil {
 		log.Fatal(err)
@@ -198,6 +203,9 @@ func (o *options) check() error {
 	}
 	if o.Quota < 1 {
 		return errors.New("-quota 至少为 1（%）")
+	}
+	if o.SlowOver < 0 || o.slowWait < 0 {
+		return errors.New("-slow-over 与 -slow-wait 不能为负")
 	}
 	sched, err := parseSchedule(o.Schedule)
 	if err != nil {
@@ -518,10 +526,20 @@ func (s *scaler) create(version string, assumeUp bool, why string) *instance {
 		port++
 	}
 	now := time.Now()
+	pull := s.opt.pull
+	slow := false
+	if s.opt.SlowOver > 0 && s.activeCount() >= s.opt.SlowOver {
+		pull += s.opt.slowWait
+		slow = true
+	}
 	in := &instance{port: port, addr: "127.0.0.1:" + strconv.Itoa(port), unit: fmt.Sprintf("lab3-inst-%d", port),
-		version: version, state: stPulling, created: now, pullUntil: now.Add(s.opt.pull), assumeUp: assumeUp}
+		version: version, state: stPulling, created: now, pullUntil: now.Add(pull), assumeUp: assumeUp}
 	s.insts = append(s.insts, in)
-	s.logInst(in, "created", why)
+	if slow {
+		s.logInst(in, "created", why+"；慢速层，多等 "+s.opt.slowWait.String())
+	} else {
+		s.logInst(in, "created", why)
+	}
 	return in
 }
 
