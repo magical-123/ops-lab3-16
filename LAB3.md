@@ -363,9 +363,46 @@ C3 的注入使实例处理查询的速度变慢（泊松到达随机排队）�
 | O2 两层伸缩 | **已完成**。改 `cmd/scaler/`，新增 `-slow-over N`（快槽数）与 `-slow-wait D`（超出快槽后新实例多等的时间）。预测：≤N 个实例走快路径（创建→就绪约 84 s ≈ 2 分钟），>N 个走慢路径（约 324 s ≈ 6 分钟），缺口会显著拉长。实验 `runs/o2-slow/`：`-slow-over 2 -slow-wait 240s` + CPU 信号重跑 B2 曲线。实测快实例 8101/8102 拉镜像 21 s、创建→就绪 84 s；慢实例 8103/8104 拉镜像 261 s（240 s 等节点 + 21 s 拉镜像）、创建→就绪 324 s。缺口 141→479 共 338 s（B2 为 103 s），错误 71048（55.94%，B2 为 14.39%），实例·分钟 36.3。结论：慢速层在 300 s 峰值内来不及就绪，缺口被快槽容量（2×123 rps）锁死，扩大约 3.3 倍。 |
 | O3 扩错层 | <未做 / 预测、`runs/` 目录、结论> |
 | O4 Kubernetes 的 HPA | <未做 / 环境、配置文件、数据与结论> |
-| O5 换负载均衡器 | <未做 / 配置文件、`runs/` 目录、结论> |
+| O5 换负载均衡器 | **已完成**。HAProxy 替换 lbd：kill 检出 2.2 s/120 错、pause 检出 4.2 s/243 错、slow 无检出但 p99 恶化至约 163 ms（社区版缺延迟离群摘除）。详见下方 O5 段落。 |
 | O6 两台主机 | <未做 / 拓扑、`runs/` 目录、结论> |
 | O7 迁移到小组项目 | <未做 / 仓库链接、做了什么、结论> |
+
+### O5 换负载均衡器
+
+使用 HAProxy，版本为 **2.8.30**（`haproxy -v`：`HAProxy version 2.8.30-0ubuntu0.24.04.2`，长期支持分支；运行于 Linux 6.8.0-136-generic x86_64）。
+
+选择 HAProxy 而非 Nginx：`lbd` 是主动健康检查（周期请求 `/readyz`，连续失败 `fall` 次判 down、连续成功 `rise` 次恢复），HAProxy 的 `option httpchk` + `inter/fall/rise` 与之逐一对应；Nginx 社区版只有被动健康检查（`max_fails`/`fail_timeout`，靠真实请求失败触发），语义与 `lbd` 不一致，无法公平比较「检出时间」。
+
+**参数对照**：
+
+| lbd 参数 | 默认值 | HAProxy 配置 |
+|---|---|---|
+| `-check-interval` | 1 s | `default-server inter 1s` |
+| `-check-timeout` | 500 ms | `timeout check 500ms` |
+| `-fall` / `-rise` | 3 / 2 | `fall 3` / `rise 2` |
+| `-check-path` | `/readyz` | `option httpchk GET /readyz` |
+| `-policy` | rr 轮询 | `balance roundrobin` |
+| `-outlier`（离群摘除） | 关 / 开 | 社区版无延迟离群摘除（重点差异） |
+
+**结果与结论**：
+
+| 项 | 故障 | 检出时间（s） | 注入到判定之间错误数 |
+|---|---|---|---|
+| lbd（对照） | kill 8102 | 1.0（removed，scaler） | 57 |
+| lbd（对照） | pause 8103 20 | 2.7（down） | 158 |
+| HAProxy | kill 8102 | 2.2 | 120 |
+| HAProxy | pause 8103 20 | 4.2 | 243 |
+| lbd（不摘除） | slow 8102 | 无检出 | 0 |
+| lbd（`-outlier`） | slow 8102 | 19.1（ejected，共 4 次） | 0 |
+| HAProxy | slow 8102 | 无检出 | 0 |
+
+**结论**：
+
+① **检出时间**：HAProxy kill 8102 检出 **2.2 s**（`inter 1s × fall 3` 连续三次失败判 down），比 `lbd` 的 1.0 s（scaler 监听到退出直接 removed）慢约 1 s；pause 8103 检出 **4.2 s**，比 kill 更慢，因为 SIGSTOP 后连接挂起、每次检查都要等满 `timeout check 500ms` 才记一次失败。注入到判定的错误数：kill 为 **120**（`503`），pause 为 **243**（`timeout`），正好对应 `steps.csv` 里的 `http_err=120`、`timeout=243` 两个失败窗口。
+
+② **配置方式**：HAProxy 的声明式配置比 `lbd` 的命令行开关更直观地表达「间隔/超时/失败阈值」（`inter/fall/rise/timeout check` 一目了然），且 `option log-health-checks` + syslog 天然给出毫秒时间戳的 DOWN/UP 记录，比 `lbd` 的事件 CSV 更容易定位「何时 down、何时恢复」；代价是要手动维护 syslog 与 stats socket。
+
+③ **C3 关键差异**：HAProxy 对 slow 8102 **无检出、0 错误**，但慢速的 120 s 内全站 p99 从基线约 15 ms 恶化到峰值 **约 163 ms**；`lbd -outlier` 则在 19.1 s 摘除慢实例、保护 p99。证实「就绪检查」（只看 `/readyz` 是否 200）与「延迟/错误率离群检测」（看真实请求 p99）是两层能力，HAProxy 社区版只有前者，看不到「健康但慢」的实例。
 
 ## 8. 成员分工
 
