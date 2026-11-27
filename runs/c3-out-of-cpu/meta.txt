@@ -1,0 +1,117 @@
+名字: c3-out-of-cpu
+开始: 2026-11-27T22:10:07+08:00
+主机: Linux 6.8.0-136-generic x86_64
+CPU: 2 个逻辑核；Intel(R) Xeon(R) Gold 6278C CPU @ 2.60GHz
+内存: 3531 MiB，available 2330 MiB
+systemd: systemd 255 (255.4-1ubuntu8.16)
+loadgen: 绑定的核 0；缺口阈值 0.2s
+仓库提交: a9cf9a6，未提交的改动 4 处
+压测命令: bin/loadgen '-url' 'http://127.0.0.1:8080/api/courses/1' '-plan' '172.27@240s'
+lbd /config:
+{
+  "addr": "127.0.0.1:8080",
+  "admin": "127.0.0.1:8090",
+  "policy": "rr",
+  "check_path": "/readyz",
+  "check_interval": "1s",
+  "check_timeout": "500ms",
+  "fall": 3,
+  "rise": 2,
+  "timeout": "2s",
+  "outlier": false,
+  "outlier_window": "10s",
+  "outlier_factor": 3,
+  "outlier_min_ms": 50,
+  "outlier_min_requests": 50,
+  "outlier_error_rate": 0.2,
+  "outlier_max_frac": 0.34,
+  "outlier_eject": "30s",
+  "events": "data/lbd-events.csv",
+  "started": "2026-11-27T22:08:59+08:00"
+}
+lbd /backends:
+[
+  {
+    "addr": "127.0.0.1:8101",
+    "up": false,
+    "draining": false,
+    "ejected": false,
+    "eligible": false,
+    "inflight": 0,
+    "served": 0
+  },
+  {
+    "addr": "127.0.0.1:8102",
+    "up": false,
+    "draining": false,
+    "ejected": false,
+    "eligible": false,
+    "inflight": 0,
+    "served": 0
+  },
+  {
+    "addr": "127.0.0.1:8103",
+    "up": false,
+    "draining": false,
+    "ejected": false,
+    "eligible": false,
+    "inflight": 0,
+    "served": 0
+  }
+]
+scaler /config:
+{
+  "mode": "fixed",
+  "replicas": 3,
+  "min": 2,
+  "max": 4,
+  "target": 0.7,
+  "tolerance": 0.1,
+  "signal": "",
+  "sync": "15s",
+  "down_window": "5m0s",
+  "schedule": "",
+  "pull": "20s",
+  "slow_over": 0,
+  "slow_wait": "0s",
+  "quota_percent": 25,
+  "quota_period": "",
+  "memory": "128M",
+  "cpus": "1",
+  "restart": "",
+  "bin": "/srv/lab3/bin/enrolld",
+  "args": "-warmup 60s -work 1000000",
+  "env": "",
+  "version": "v1",
+  "base_port": 8101,
+  "data": "/srv/lab3/data",
+  "lb": "http://127.0.0.1:8090",
+  "prom": "http://127.0.0.1:9090",
+  "admin": "127.0.0.1:8091",
+  "started": "2026-11-27T22:09:03+08:00"
+}
+scaler /instances:
+[
+  {
+    "addr": "127.0.0.1:8101",
+    "version": "v1",
+    "state": "starting",
+    "created": "22:09:03",
+    "restarts": 0
+  },
+  {
+    "addr": "127.0.0.1:8102",
+    "version": "v1",
+    "state": "starting",
+    "created": "22:09:03",
+    "restarts": 0
+  },
+  {
+    "addr": "127.0.0.1:8103",
+    "version": "v1",
+    "state": "starting",
+    "created": "22:09:03",
+    "restarts": 0
+  }
+]
+结束: 2026-11-27T22:14:09+08:00
