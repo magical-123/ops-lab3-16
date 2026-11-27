@@ -1,0 +1,3 @@
+2026-11-27T23:47:35.088483+08:00 lab3-16 haproxy[1225503]: Server enrolld/s3 is UP. 1 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+2026-11-27T23:47:35.445934+08:00 lab3-16 haproxy[1225503]: Server enrolld/s1 is UP. 2 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+2026-11-27T23:47:35.762421+08:00 lab3-16 haproxy[1225503]: Server enrolld/s2 is UP. 3 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.

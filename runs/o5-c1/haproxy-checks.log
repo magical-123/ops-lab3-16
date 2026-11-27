@@ -1,0 +1,7 @@
+2026-11-27T23:36:16.766333+08:00 lab3-16 haproxy[1220980]: Server enrolld/s2 is UP. 1 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+2026-11-27T23:36:17.073222+08:00 lab3-16 haproxy[1220980]: Server enrolld/s3 is UP. 2 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+2026-11-27T23:36:17.414891+08:00 lab3-16 haproxy[1220980]: Server enrolld/s1 is UP. 3 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+2026-11-27T23:37:52.941592+08:00 lab3-16 haproxy[1220980]: Server enrolld/s2 is DOWN. 2 active and 0 backup servers left. 1 sessions active, 0 requeued, 0 remaining in queue.
+2026-11-27T23:38:53.024220+08:00 lab3-16 haproxy[1220980]: Server enrolld/s2 is UP. 3 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
+2026-11-27T23:39:34.891322+08:00 lab3-16 haproxy[1220980]: Server enrolld/s3 is DOWN. 2 active and 0 backup servers left. 243 sessions active, 0 requeued, 0 remaining in queue.
+2026-11-27T23:39:53.645585+08:00 lab3-16 haproxy[1220980]: Server enrolld/s3 is UP. 3 active and 0 backup servers online. 0 sessions requeued, 0 total in queue.
