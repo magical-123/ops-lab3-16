@@ -1,0 +1,12 @@
+任务 A1 的同条件复测记录
+
+采集日期：2026-11-28（Asia/Shanghai）
+目的：补充原 A1 终端标准输出未单独归档的问题。
+注意：原 A1 的独立标准输出未归档。本目录保存组长在第一台 Lab3 主机上的同条件复测标准输出，LAB3.md 第 2.1 节的数值按本次可核查复测更新。
+主机：lab3-16
+二进制：/srv/lab3/bin/enrolld，主机仓库版本 e64c41b。
+命令：sudo -n systemd-run --quiet --scope -p CPUQuota=50% /srv/lab3/bin/enrolld -burn 1 -for 10s
+命令：sudo -n systemd-run --quiet --scope -p CPUQuota=50% /srv/lab3/bin/enrolld -burn 2 -for 10s
+采集文件：burn-1.txt、burn-2.txt
+
+复测仍得到 100 个周期全部被节流。单线程实测每线程每周期停顿 50.8 ms，双线程实测 74.4 ms，与 50.0 ms 和 75.0 ms 的算术值接近。
