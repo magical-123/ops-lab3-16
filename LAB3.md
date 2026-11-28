@@ -329,7 +329,7 @@ sum(changes(process_start_time_seconds{job="instances"}[10m])) > 0
 
 **A3 RSS 推算与实测对比：** `a3-oom/red.csv` 阶段 1 记录 RSS 峰值 138.4 MiB，高于预测的约 100 MiB。恢复的阶段 2 Prometheus 时序显示 OOM 前最大在途数为 12、进程 RSS 峰值为 212422656 字节（约 202.6 MiB），详见 `runs/a3-oom/prometheus-phase2-query.json`。提高限额的另一次测量中，`a3-higher-mem/red.csv` 阶段 2 也记录最大在途数 12、RSS 峰值为 220.9 MiB。Little 定律估计平均在途量，分配突发和 GC 回收间隔会推高内存峰值。
 
-**Go GC 的影响：** `GOGC` 控制 Go 堆的增长目标，RSS 还包含该进程的栈、运行时及已驻留的映射页。容量估算应给峰值在途分配和 GC 留出余量。O1 的 20 请求/秒阶段完成 393/396 个请求，RSS 峰值 171.8 MiB、GC 频率 3.14 次/秒。A3 基线同阶段只有 36/396 个请求成功，缺少 GC 查询值。可比的 10 请求/秒阶段两次测得的 GC 频率均为 1.64 次/秒，服务进程每请求 CPU 分别为 2.93 ms 和 3.14 ms。
+**Go GC 的影响：** `GOGC` 控制 Go 堆的增长目标，RSS 还包含该进程的栈、运行时及已驻留的映射页。容量估算应给峰值在途分配和 GC 留出余量。O1 的 20 请求/秒阶段完成 393/396 个请求，RSS 峰值 171.8 MiB、GC 频率 3.14 次/秒。A3 基线同阶段只有 36/396 个请求成功；保留时序显示 OOM 前最后 3 秒 `go_gc_cycles_total` 从 34 增至 41，局部速率约 2.33 次/秒，无法计算完整阶段均值，原始查询见 `runs/a3-oom/prometheus-phase2-query.json`。可比的 10 请求/秒阶段两次测得的 GC 频率均为 1.64 次/秒，服务进程每请求 CPU 分别为 2.93 ms 和 3.14 ms。
 
 **MemoryMax 与 MemorySwapMax=0 的关系：** 若不限制 swap，当进程超过 MemoryMax 时，cgroup 会将部分内存换出到 swap 而非立即 OOM kill，导致频繁的 swap in/out，性能极度下降（延迟增加 10-100 倍），且会拖累整个系统（磁盘 I/O 飙升），直到内存和 swap 都满才被杀。设置 MemorySwapMax=0 禁止使用 swap，超限立即 OOM kill，遵循快速失败原则，保护系统不被 swap thrashing 拖垮，确保 MemoryMax 是真正的硬限制，同时保证实验行为可预测和可重复。
 
