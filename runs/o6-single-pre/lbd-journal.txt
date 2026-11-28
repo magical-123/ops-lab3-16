@@ -1,0 +1,5 @@
+Nov 28 17:43:19 lab3-16 systemd[1]: Started o6-lbd-single-pre.service - /srv/lab3/bin/lbd -addr 127.0.0.1:8080 -admin 127.0.0.1:8090 -backends 127.0.0.1:8101 -events /srv/lab3/runs/o6-single-pre/lbd-events.csv.
+Nov 28 17:43:19 lab3-16 lbd[1481821]: 2026/11/28 17:43:19 127.0.0.1:8101 added init=up
+Nov 28 17:43:19 lab3-16 lbd[1481821]: 2026/11/28 17:43:19 lbd 监听 127.0.0.1:8080（管理接口 127.0.0.1:8090）；rr；健康检查 /readyz 每 1s，超时 500ms，fall 3、rise 2；被动摘除 false；事件写入 /srv/lab3/runs/o6-single-pre/lbd-events.csv
+Nov 28 17:43:22 lab3-16 lbd[1481821]: 2026/11/28 17:43:22 127.0.0.1:8101 down 连续失败 3 次：状态码 503
+Nov 28 17:43:58 lab3-16 lbd[1481821]: 2026/11/28 17:43:58 127.0.0.1:8101 up 连续成功 2 次

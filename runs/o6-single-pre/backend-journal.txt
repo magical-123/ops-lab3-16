@@ -1,0 +1,2 @@
+Nov 28 17:42:56 lab3-16 systemd[1]: Started o6-enrolld-single-pre.service - /srv/lab3/bin/enrolld -addr 127.0.0.1:8101 -work 1000000 -warmup 60s -data /srv/lab3/data/o6-single-pre.
+Nov 28 17:42:56 lab3-16 enrolld[1481648]: 2026/11/28 17:42:56 enrolld v1 监听 127.0.0.1:8101；GOMAXPROCS=1；cgroup /sys/fs/cgroup/system.slice/o6-enrolld-single-pre.service；预热 1m0s；读：work=1000000、pool=32、db-ms=2；写：sync=each

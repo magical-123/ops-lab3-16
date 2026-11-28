@@ -1,0 +1,20 @@
+O6 单机前测
+
+日期：2026-11-28（Asia/Shanghai）
+拓扑：主机 A 上运行 enrolld、lbd 和 loadgen
+代码版本：主机 /srv/lab3 仓库提交 e64c41b；本轮用到的 enrolld、lbd、loadgen 源码与最终提交一致
+后端参数：-addr 127.0.0.1:8101 -work 1000000 -warmup 60s
+后端资源：AllowedCPUs=1，CPUQuota=25%，MemoryMax=128M，MemorySwapMax=0
+控制侧：lbd 和 loadgen 使用 CPU0；lbd 监听 127.0.0.1:8080，管理口监听 127.0.0.1:8090
+请求：GET /api/courses/1
+负载：34@30s,34~80@15s,80@60s,80~34@15s,34@30s
+到达过程：poisson
+随机种子：16
+超时：2s；SLO：50ms
+负载开始：2026-11-28 17:46:24 +08:00
+负载结束：2026-11-28 17:48:54 +08:00
+
+结果摘录：80 请求/秒阶段成功 4743/4743，错误 0，p50 5.14 ms，p99 23.94 ms，最大 59.02 ms，发送滞后 p99 1.06 ms。全程成功 8528/8528，错误 0，整体 p50 5.14 ms、p99 15.60 ms。完整阶段结果见 steps.csv，逐秒数据见 timeline.csv。
+后端结束快照：CPUUsageNSec=17837682000，MemoryPeak=7340032 bytes；进程结束时 lbd 指标为 8528 个 200，1 个后端可用。完整快照见 backend-unit.txt、backend-metrics-end.txt、lbd-metrics-end.txt。
+
+压测结束后已停止本轮 enrolld 和 lbd。services stopped；实验监听端口已关闭。

@@ -1,0 +1,9 @@
+MainPID=1481648
+ControlGroup=/system.slice/o6-enrolld-single-pre.service
+MemoryPeak=7340032
+CPUUsageNSec=17837682000
+CPUQuotaPerSecUSec=250ms
+AllowedCPUs=1
+MemoryMax=134217728
+MemorySwapMax=0
+ActiveState=active
