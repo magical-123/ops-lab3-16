@@ -1,0 +1,2 @@
+2026-11-28T20:24:58.569150+08:00 lab3-16 systemd[1]: Started o6-enrolld-single-post.service - O6 single-host post-test backend.
+2026-11-28T20:24:58.583814+08:00 lab3-16 enrolld[1516655]: 2026/11/28 20:24:58 enrolld v1 监听 127.0.0.1:8101；GOMAXPROCS=1；cgroup /sys/fs/cgroup/system.slice/o6-enrolld-single-post.service；预热 1m0s；读：work=1000000、pool=32、db-ms=2；写：sync=each

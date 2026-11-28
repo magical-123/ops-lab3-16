@@ -1,0 +1,7 @@
+MainPID=1517073
+ControlGroup=/system.slice/o6-lbd-single-post.service
+MemoryPeak=7409664
+CPUUsageNSec=2294399000
+AllowedCPUs=0
+Description=O6 single-host post-test lbd
+ActiveState=active

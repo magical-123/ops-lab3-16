@@ -1,0 +1,7 @@
+MainPID=42348
+ControlGroup=/system.slice/o6-lbd-two-host.service
+MemoryPeak=7413760
+CPUUsageNSec=1830757000
+AllowedCPUs=0
+Description=O6 lbd on second host forwarding to first host
+ActiveState=active

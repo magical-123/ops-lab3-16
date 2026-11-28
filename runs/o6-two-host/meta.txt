@@ -1,0 +1,20 @@
+O6 双机测量
+
+日期：2026-11-28（Asia/Shanghai）
+拓扑：A 上运行 enrolld，B 上运行 lbd 和 loadgen；lbd 经 VPC 转发到 A
+测量开始：2026-11-28 20:17:32.086 +08:00
+测量结束：2026-11-28 20:20:02.089 +08:00
+代码：与 O6 单机前测一致；A/B 的 lbd 和 loadgen SHA-256 一致
+enrolld SHA-256：531c5b0a676b6334bd6f351a17859f4ae99362a01628f58bf2d39ad824ecfd32
+lbd SHA-256：0996f8cb55590bdd7c11296418d1db8758654422403787c4ec5b141cad6a8402
+loadgen SHA-256：28be4b2d9b5a4b16074dc54a6d7ec1d595d37d1c416a4c315bf9f250b17ff7d6
+后端参数：-addr 0.0.0.0:8080 -work 1000000 -warmup 60s
+后端资源：AllowedCPUs=1，CPUQuota=25%，MemoryMax=128M，MemorySwapMax=0
+控制侧：B 上 lbd 监听 127.0.0.1:8080，管理口监听 127.0.0.1:8090；lbd 和 loadgen 使用 CPU0
+请求：GET /api/courses/1
+负载：34@30s,34~80@15s,80@60s,80~34@15s,34@30s
+到达过程：poisson；随机种子：16；超时：2s；SLO：50ms
+80 请求/秒阶段：4743/4743 成功，错误 0，p50 5.25ms，p99 19.30ms，最大 55.24ms，发送滞后 p99 1.06ms
+全程：8528/8528 成功，错误 0，p50 5.23ms，p99 11.70ms，SLO 达标率 99.98%
+说明：lbd 计数多出的 2 个 200 对应负载开始前经 B 上 lbd 转发的两次 /readyz 检查
+后端 unit 于 18:04:27 启动，CPU cgroup 计数为 unit 生命周期累计值。cgroup 结束快照只作为终态核验，不作为本轮 CPU 增量

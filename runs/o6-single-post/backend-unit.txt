@@ -1,0 +1,10 @@
+MainPID=1516655
+ControlGroup=/system.slice/o6-enrolld-single-post.service
+MemoryPeak=7569408
+CPUUsageNSec=18033786000
+CPUQuotaPerSecUSec=250ms
+AllowedCPUs=1
+MemoryMax=134217728
+MemorySwapMax=0
+Description=O6 single-host post-test backend
+ActiveState=active

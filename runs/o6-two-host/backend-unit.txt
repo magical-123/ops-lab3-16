@@ -1,0 +1,10 @@
+MainPID=1487825
+ControlGroup=/system.slice/o6-enrolld-two-host.service
+MemoryPeak=7225344
+CPUUsageNSec=17586522000
+CPUQuotaPerSecUSec=250ms
+AllowedCPUs=1
+MemoryMax=134217728
+MemorySwapMax=0
+Description=/srv/lab3/bin/enrolld -addr 0.0.0.0:8080 -work 1000000 -warmup 60s -data /srv/lab3/data/o6-two-host
+ActiveState=active

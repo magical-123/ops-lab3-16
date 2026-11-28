@@ -1,0 +1,7 @@
+MainPID=0
+ControlGroup=
+MemoryPeak=[not set]
+CPUUsageNSec=[not set]
+AllowedCPUs=
+Description=o6-loadgen-single-post.service
+ActiveState=inactive
