@@ -1,0 +1,10 @@
+[Unit]
+Description=lab2 enrolld (O7 CPU quota experiment)
+
+[Service]
+ExecStart=/home/lab3_m4/o7/bin/enrolld -addr 127.0.0.1:8088 -work 200000 -pool 40 -db-ms 10 -data /home/lab3_m4/o7/data
+CPUQuota=5%
+Restart=no
+
+[Install]
+WantedBy=multi-user.target

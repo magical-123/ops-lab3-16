@@ -1,0 +1,38 @@
+== baseline CPUQuota=200% ==
+-- unit --
+[Unit]
+Description=lab2 enrolld (O7 CPU quota experiment)
+
+[Service]
+ExecStart=/home/lab3_m4/o7/bin/enrolld -addr 127.0.0.1:8088 -work 200000 -pool 40 -db-ms 10 -data /home/lab3_m4/o7/data
+CPUQuota=200%
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
+-- cgroup 前 --
+cpu.max: 200000 100000
+cpu.weight: 100
+usage_usec 15896
+user_usec 11480
+system_usec 4415
+core_sched.force_idle_usec 0
+nr_periods 2
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+memory.current: 2740224
+-- cgroup 后 --
+usage_usec 14081095
+user_usec 12114381
+system_usec 1966714
+core_sched.force_idle_usec 0
+nr_periods 602
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+memory.current: 7876608
+memory.peak: 8822784
+cpu.max: 200000 100000

@@ -1,0 +1,2 @@
+k3s version v1.37.2+k3s1 (f6973cb8)
+node: lab3-16 Ready control-plane v1.37.2+k3s1 Ubuntu 24.04.4 LTS 6.8.0-136-generic containerd://2.3.7-k3s1

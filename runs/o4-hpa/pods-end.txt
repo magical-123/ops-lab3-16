@@ -1,0 +1,5 @@
+NAME                       READY   STATUS    RESTARTS   AGE     IP           NODE      NOMINATED NODE   READINESS GATES
+enrolld-5887ffbc7d-hrrg8   1/1     Running   0          12m     10.42.0.8    lab3-16   <none>           <none>
+enrolld-5887ffbc7d-ndkxr   1/1     Running   0          8m3s    10.42.0.10   lab3-16   <none>           <none>
+enrolld-5887ffbc7d-sx6z6   1/1     Running   0          6m18s   10.42.0.11   lab3-16   <none>           <none>
+enrolld-5887ffbc7d-sx7tt   1/1     Running   0          11m     10.42.0.9    lab3-16   <none>           <none>

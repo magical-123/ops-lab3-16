@@ -1,0 +1,72 @@
+LAST SEEN   TYPE      REASON                           OBJECT                            MESSAGE
+6m17s       Normal    Scheduled                        pod/enrolld-5887ffbc7d-sx6z6      Successfully assigned default/enrolld-5887ffbc7d-sx6z6 to lab3-16
+18m         Normal    Scheduled                        pod/enrolld-5894954c6d-hhfhb      Successfully assigned default/enrolld-5894954c6d-hhfhb to lab3-16
+18m         Normal    Scheduled                        pod/enrolld-5894954c6d-z5q86      Successfully assigned default/enrolld-5894954c6d-z5q86 to lab3-16
+11m         Normal    Scheduled                        pod/enrolld-5887ffbc7d-sx7tt      Successfully assigned default/enrolld-5887ffbc7d-sx7tt to lab3-16
+20m         Normal    Starting                         node/lab3-16                      
+12m         Normal    Scheduled                        pod/enrolld-5887ffbc7d-hrrg8      Successfully assigned default/enrolld-5887ffbc7d-hrrg8 to lab3-16
+8m3s        Normal    Scheduled                        pod/enrolld-5887ffbc7d-ndkxr      Successfully assigned default/enrolld-5887ffbc7d-ndkxr to lab3-16
+20m         Normal    CertificateExpirationOK          node/lab3-16                      Node and Certificate Authority certificates managed by k3s are OK
+20m         Normal    NodeAllocatableEnforced          node/lab3-16                      Updated Node Allocatable limit across pods
+20m         Normal    NodeReady                        node/lab3-16                      Node lab3-16 status is now: NodeReady
+20m         Normal    NodeHasSufficientMemory          node/lab3-16                      Node lab3-16 status is now: NodeHasSufficientMemory
+20m         Normal    NodeHasSufficientPID             node/lab3-16                      Node lab3-16 status is now: NodeHasSufficientPID
+20m         Normal    Starting                         node/lab3-16                      Starting kubelet.
+20m         Normal    NodeHasNoDiskPressure            node/lab3-16                      Node lab3-16 status is now: NodeHasNoDiskPressure
+20m         Normal    NodePasswordValidationComplete   node/lab3-16                      Deferred node password secret validation complete
+20m         Normal    Synced                           node/lab3-16                      Node synced successfully
+20m         Normal    RegisteredNode                   node/lab3-16                      Node lab3-16 event: Registered Node lab3-16 in Controller
+18m         Normal    SuccessfulCreate                 replicaset/enrolld-5894954c6d     Created pod: enrolld-5894954c6d-hhfhb
+18m         Normal    SuccessfulCreate                 replicaset/enrolld-5894954c6d     Created pod: enrolld-5894954c6d-z5q86
+18m         Normal    ScalingReplicaSet                deployment/enrolld                Scaled up replica set enrolld-5894954c6d from 0 to 2
+18m         Warning   Unhealthy                        pod/enrolld-5894954c6d-z5q86      Readiness probe failed: Get "http://10.42.0.6:8081/readyz": dial tcp 10.42.0.6:8081: connect: connection refused
+18m         Warning   Unhealthy                        pod/enrolld-5894954c6d-hhfhb      Readiness probe failed: Get "http://10.42.0.7:8081/readyz": dial tcp 10.42.0.7:8081: connect: connection refused
+14m         Normal    Killing                          pod/enrolld-5894954c6d-hhfhb      Container enrolld failed liveness probe, will be restarted
+14m         Normal    Killing                          pod/enrolld-5894954c6d-z5q86      Container enrolld failed liveness probe, will be restarted
+13m         Normal    Started                          pod/enrolld-5894954c6d-z5q86      Container started
+13m         Normal    Pulled                           pod/enrolld-5894954c6d-z5q86      Container image "enrolld:o4" already present on machine and can be accessed by the pod
+13m         Normal    Created                          pod/enrolld-5894954c6d-z5q86      Container created
+13m         Normal    Started                          pod/enrolld-5894954c6d-hhfhb      Container started
+13m         Normal    Pulled                           pod/enrolld-5894954c6d-hhfhb      Container image "enrolld:o4" already present on machine and can be accessed by the pod
+13m         Normal    Created                          pod/enrolld-5894954c6d-hhfhb      Container created
+13m         Warning   FailedComputeMetricsReplicas     horizontalpodautoscaler/enrolld   invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+13m         Warning   FailedGetResourceMetric          horizontalpodautoscaler/enrolld   failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+13m         Warning   FailedComputeMetricsReplicas     horizontalpodautoscaler/enrolld   invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+13m         Warning   FailedGetResourceMetric          horizontalpodautoscaler/enrolld   failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+13m         Warning   Unhealthy                        pod/enrolld-5894954c6d-z5q86      Readiness probe failed: HTTP probe failed with statuscode: 503
+13m         Warning   Unhealthy                        pod/enrolld-5894954c6d-hhfhb      Readiness probe failed: HTTP probe failed with statuscode: 503
+12m         Normal    SuccessfulCreate                 replicaset/enrolld-5887ffbc7d     Created pod: enrolld-5887ffbc7d-hrrg8
+12m         Normal    ScalingReplicaSet                deployment/enrolld                Scaled up replica set enrolld-5887ffbc7d from 0 to 1
+12m         Normal    Pulled                           pod/enrolld-5887ffbc7d-hrrg8      Container image "enrolld:o4" already present on machine and can be accessed by the pod
+12m         Normal    Started                          pod/enrolld-5887ffbc7d-hrrg8      Container started
+12m         Normal    Created                          pod/enrolld-5887ffbc7d-hrrg8      Container created
+12m         Warning   Unhealthy                        pod/enrolld-5887ffbc7d-hrrg8      Readiness probe failed: HTTP probe failed with statuscode: 503
+11m         Normal    ScalingReplicaSet                deployment/enrolld                Scaled up replica set enrolld-5887ffbc7d from 1 to 2
+11m         Normal    SuccessfulDelete                 replicaset/enrolld-5894954c6d     Deleted pod: enrolld-5894954c6d-z5q86
+11m         Normal    Killing                          pod/enrolld-5894954c6d-z5q86      Stopping container enrolld
+11m         Normal    SuccessfulCreate                 replicaset/enrolld-5887ffbc7d     Created pod: enrolld-5887ffbc7d-sx7tt
+11m         Normal    ScalingReplicaSet                deployment/enrolld                Scaled down replica set enrolld-5894954c6d from 2 to 1
+11m         Normal    Pulled                           pod/enrolld-5887ffbc7d-sx7tt      Container image "enrolld:o4" already present on machine and can be accessed by the pod
+11m         Normal    Created                          pod/enrolld-5887ffbc7d-sx7tt      Container created
+11m         Normal    Started                          pod/enrolld-5887ffbc7d-sx7tt      Container started
+11m         Warning   Unhealthy                        pod/enrolld-5887ffbc7d-sx7tt      Readiness probe failed: Get "http://10.42.0.9:8081/readyz": dial tcp 10.42.0.9:8081: connect: connection refused
+11m         Warning   Unhealthy                        pod/enrolld-5887ffbc7d-sx7tt      Readiness probe failed: HTTP probe failed with statuscode: 503
+10m         Normal    ScalingReplicaSet                deployment/enrolld                Scaled down replica set enrolld-5894954c6d from 1 to 0
+10m         Normal    SuccessfulDelete                 replicaset/enrolld-5894954c6d     Deleted pod: enrolld-5894954c6d-hhfhb
+10m         Normal    Killing                          pod/enrolld-5894954c6d-hhfhb      Stopping container enrolld
+8m3s        Normal    Created                          pod/enrolld-5887ffbc7d-ndkxr      Container created
+8m3s        Normal    SuccessfulCreate                 replicaset/enrolld-5887ffbc7d     Created pod: enrolld-5887ffbc7d-ndkxr
+8m3s        Normal    ScalingReplicaSet                deployment/enrolld                Scaled up replica set enrolld-5887ffbc7d from 2 to 3
+8m3s        Normal    Pulled                           pod/enrolld-5887ffbc7d-ndkxr      Container image "enrolld:o4" already present on machine and can be accessed by the pod
+8m3s        Normal    SuccessfulRescale                horizontalpodautoscaler/enrolld   New size: 3; reason: cpu resource utilization (percentage of request) above target
+8m3s        Normal    Started                          pod/enrolld-5887ffbc7d-ndkxr      Container started
+7m55s       Warning   Unhealthy                        pod/enrolld-5887ffbc7d-hrrg8      Readiness probe failed: Get "http://10.42.0.8:8081/readyz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+7m39s       Warning   Unhealthy                        pod/enrolld-5887ffbc7d-ndkxr      Readiness probe failed: HTTP probe failed with statuscode: 503
+6m54s       Warning   Unhealthy                        pod/enrolld-5887ffbc7d-sx7tt      Readiness probe failed: Get "http://10.42.0.9:8081/readyz": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+6m18s       Normal    SuccessfulCreate                 replicaset/enrolld-5887ffbc7d     Created pod: enrolld-5887ffbc7d-sx6z6
+6m18s       Normal    ScalingReplicaSet                deployment/enrolld                Scaled up replica set enrolld-5887ffbc7d from 3 to 4
+6m18s       Normal    SuccessfulRescale                horizontalpodautoscaler/enrolld   New size: 4; reason: cpu resource utilization (percentage of request) above target
+6m17s       Normal    Started                          pod/enrolld-5887ffbc7d-sx6z6      Container started
+6m17s       Normal    Pulled                           pod/enrolld-5887ffbc7d-sx6z6      Container image "enrolld:o4" already present on machine and can be accessed by the pod
+6m17s       Normal    Created                          pod/enrolld-5887ffbc7d-sx6z6      Container created
+5m54s       Warning   Unhealthy                        pod/enrolld-5887ffbc7d-sx6z6      Readiness probe failed: HTTP probe failed with statuscode: 503

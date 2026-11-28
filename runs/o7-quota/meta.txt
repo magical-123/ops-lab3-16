@@ -1,0 +1,11 @@
+名字: o7-quota
+开始: 2026-11-28T15:11:49+08:00
+主机: Linux 6.8.0-136-generic x86_64
+CPU: 2 个逻辑核；Intel(R) Xeon(R) Gold 6278C CPU @ 2.60GHz
+内存: 3531 MiB
+systemd: systemd 255 (255.4-1ubuntu8.16)
+源码: lab2/ops-lab2-16 的 cmd/enrolld（提交 外部拷贝）
+go: go version go1.27.4 linux/amd64
+服务参数: /home/lab3_m4/o7/bin/enrolld -addr 127.0.0.1:8088 -work 200000 -pool 40 -db-ms 10 -data /home/lab3_m4/o7/data
+压测命令: bin/loadgen -url http://127.0.0.1:8088/api/courses/1 -plan 400@60s
+预测: 基线 400 rps 时 CPU 约 0.21 核（lab2 实测 0.53 ms/请求），应 0 错误；CPUQuota=5% 只有约 0.1 核、容量约 190 rps，400 rps 下应出现大量超时，ok_rps 被压到配额对应的水平。
