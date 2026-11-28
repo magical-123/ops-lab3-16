@@ -1,0 +1,17 @@
+O6 测量前固定的实验协议
+
+日期：2026-11-28（Asia/Shanghai）
+拓扑：A 单机 → A 后端、B 上的 lbd 和 loadgen → A 单机回测
+被测后端：相同版本的 enrolld，-work 1000000 -warmup 60s
+后端资源：CPU1，CPUQuota=25%，MemoryMax=128M，MemorySwapMax=0
+控制侧资源：lbd 和 loadgen 使用各自主机的 CPU0
+请求：GET /api/courses/1
+负载：34@30s,34~80@15s,80@60s,80~34@15s,34@30s
+随机种子：16
+请求超时：2s
+SLO：50ms
+每轮开始前：确认 /readyz 就绪后空载等待 60s
+采集：loadgen steps.csv、timeline.csv；lbd events 和结束时 metrics；后端结束时 metrics 与 systemd cgroup 资源快照
+网络：双机轮次只临时允许 B 的私网地址访问 A 的 TCP 8080，结束后立即删除该规则
+
+测量前预测是三轮成功吞吐接近目标到达率；双机轮次的 p50 与 p99 小幅升高，单机前测和回测大致相符。

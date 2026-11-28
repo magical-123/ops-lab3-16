@@ -463,6 +463,10 @@ sum(changes(process_start_time_seconds{job="instances"}[10m])) > 0
 
 **对照方法。** 保持 A 上的后端实例、CPU 与内存限制、请求路径以及 `loadgen` 的负载曲线和随机种子一致。顺序执行单机、双机、单机回测，按阶段比较成功吞吐、错误数、p50、p99 和发送滞后。A 的实验业务端口 `8080/TCP` 仅临时允许 B 的私网 IP，两个场景的 lbd 管理口均使用回环。双机测量结束后删除该临时入站规则。
 
+**测量前固定参数。** 后端使用同一版本的 `enrolld`，参数为 `-work 1000000 -warmup 60s`，运行于 CPU1、`CPUQuota=25%`、`MemoryMax=128M`、`MemorySwapMax=0`。单机对照中后端监听 `127.0.0.1:8101`，lbd 和 loadgen 在 A 的 CPU0 上运行。双机组中后端改为监听 A 的 `8080`，lbd 和 loadgen 在 B 的 CPU0 上运行，lbd 仍只监听 B 的 `127.0.0.1:8080`，并转发到 A。每轮使用相同的 `GET /api/courses/1` 请求、`-plan '34@30s,34~80@15s,80@60s,80~34@15s,34@30s'`、`-seed 16`、2 s 请求超时和 50 ms SLO。依次执行单机、双机、单机回测，每轮在 `/readyz` 就绪后等待 60 s 再开始负载。三轮结束即停止服务并撤销 A 上来源为 B 私网地址的 TCP 8080 规则。
+
+**预测。** 80 请求/秒阶段低于单实例零错误上限，预计三轮均能接近目标成功吞吐。两机时 lbd 到 enrolld 多经过一段 VPC 网络路径，预计 p50 和 p99 小幅增加；单机前测与回测应大致相符，差异可用于判断短时云主机负载和网络抖动。
+
 ### O7 迁移到小组项目
 
 **做了什么。** 小组项目就是 lab2 的 `enrol-lab`（读路径：`-work 200000` 的固定计算，再从 40 个连接的池里占用 10 ms）。用 lab2 的源码在本机 `go build` 出同一个 `enrolld`，以 systemd 单元 `o7-enrolld.service` 部署在 127.0.0.1:8088，并给单元加一项 **CPU 配额**：对照组 `CPUQuota=200%`（2 核，相当于不限制），实验组 `CPUQuota=5%`。两组都用 `bin/loadgen -plan '400@60s'`（400 rps × 60 s，24150 个请求）压测；单元文件、cgroup 快照和原始数据在 `runs/o7-quota/`。
@@ -494,7 +498,7 @@ sum(changes(process_start_time_seconds{job="instances"}[10m])) > 0
 | GitHub 用户名 | 负责的部分 |
 |---|---|
 | magical-123 | 组长，实验环境、B0、统一负载参数、任务 E 整合、O6 |
-| 待确认 | 任务 A、问题 1、选做 O1 |
+| Bugbank2 | 任务 A、问题 1、选做 O1 |
 | b-wx-ai | 任务 B、问题 2、选做 O2 |
 | rbhd-sjtu | 任务 C、问题 3、选做 O5 |
-| 待确认 | 任务 D、问题 4、选做 O4、O7 |
+| lab3_m4 | 任务 D、问题 4、选做 O4、O7 |
