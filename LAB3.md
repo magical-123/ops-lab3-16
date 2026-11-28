@@ -142,6 +142,8 @@ throttle_ratio      (rate(cgroup_cpu_throttled_periods_total{job="enrolld"}[${wi
 
 实际在**第 2 阶段（20 req/s）被 OOM kill**，比预测提前。阶段 1 的 RSS 已达 138 MB，当到达率翻倍时，在途请求数增加导致内存需求超过 200M 限制。
 
+事后从保留的 Prometheus 时序中恢复到 OOM 前最后几次采样：阶段 2 在途请求数依次为 5、4、8、12，进程 RSS 最高为 212422656 字节（约 202.6 MiB），之后 `up{job="enrolld"}` 在 22:10:07 起为 0。查询范围、原始响应和时间戳见 `runs/a3-oom/prometheus-phase2-query.json`。
+
 两种改法：按最坏情况定的 limit 是 **270M**（算式：以到达率 20 为目标，根据 a3-oom 阶段 1 的 report_inflight_max=7，推断阶段 2 约 14 个在途（翻倍），(20 基线 + 14 × 8MB × 2 GC) × 1.1 余量 = 268M，取 270M）；限制并发时 `-report-max` 取 **11**（依据：(20 基线 + 上限 × 8MB × 2 GC) < 200M，解得上限 < 11.25，向下取整为 11）。
 
 **a3-higher-mem (改法一：MemoryMax=270M)**
@@ -325,7 +327,7 @@ sum(changes(process_start_time_seconds{job="instances"}[10m])) > 0
 
 **两种改法的对比：** 改法一把 CPU 配额从 50% 提至 71%，两阶段的节流周期比例均值从约 24% 降至 1.1%，p99 接近基线。改法二保持 50% 配额并设置 `GOMAXPROCS=1` 后，节流周期比例均值约 18.6%，p99 仍约 40 ms。单线程在高频到达时仍会耗尽配额。提高配额需要可用 CPU 余量，对本组读负载的尾延迟改善更明显。
 
-**A3 RSS 推算与实测对比：** `a3-oom/red.csv` 阶段 1 记录 RSS 峰值 138.4 MiB，高于预测的约 100 MiB。阶段 2 在进程退出后缺少可用的 RSS 和在途请求 Prometheus 查询值。提高限额的另一次测量中，`a3-higher-mem/red.csv` 阶段 2 记录的最大在途数为 12、RSS 峰值为 220.9 MiB。Little 定律估计平均在途量，分配突发和 GC 回收间隔会推高内存峰值。
+**A3 RSS 推算与实测对比：** `a3-oom/red.csv` 阶段 1 记录 RSS 峰值 138.4 MiB，高于预测的约 100 MiB。恢复的阶段 2 Prometheus 时序显示 OOM 前最大在途数为 12、进程 RSS 峰值为 212422656 字节（约 202.6 MiB），详见 `runs/a3-oom/prometheus-phase2-query.json`。提高限额的另一次测量中，`a3-higher-mem/red.csv` 阶段 2 也记录最大在途数 12、RSS 峰值为 220.9 MiB。Little 定律估计平均在途量，分配突发和 GC 回收间隔会推高内存峰值。
 
 **Go GC 的影响：** `GOGC` 控制 Go 堆的增长目标，RSS 还包含该进程的栈、运行时及已驻留的映射页。容量估算应给峰值在途分配和 GC 留出余量。O1 的 20 请求/秒阶段完成 393/396 个请求，RSS 峰值 171.8 MiB、GC 频率 3.14 次/秒。A3 基线同阶段只有 36/396 个请求成功，缺少 GC 查询值。可比的 10 请求/秒阶段两次测得的 GC 频率均为 1.64 次/秒，服务进程每请求 CPU 分别为 2.93 ms 和 3.14 ms。
 

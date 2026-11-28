@@ -1,0 +1,145 @@
+{
+  "query": "process_resident_memory_bytes{job=\"enrolld\"} or http_inflight_requests{job=\"enrolld\",route=\"/api/report\"} or up{job=\"enrolld\"}",
+  "range_start_unix": 1795529402,
+  "range_end_unix": 1795529422,
+  "range_start_local": "2026-11-24T22:10:02+08:00",
+  "range_end_local": "2026-11-24T22:10:22+08:00",
+  "step": "1s",
+  "context": "A3 MemoryMax=200M baseline, target 20 requests/s stage. Queried from retained Prometheus history on 2026-11-28.",
+  "response": {
+    "status": "success",
+    "data": {
+      "resultType": "matrix",
+      "result": [
+        {
+          "metric": {
+            "__name__": "http_inflight_requests",
+            "instance": "127.0.0.1:8081",
+            "job": "enrolld",
+            "route": "/api/report"
+          },
+          "values": [
+            [
+              1795529402,
+              "5"
+            ],
+            [
+              1795529403,
+              "4"
+            ],
+            [
+              1795529404,
+              "8"
+            ],
+            [
+              1795529405,
+              "12"
+            ]
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "process_resident_memory_bytes",
+            "instance": "127.0.0.1:8081",
+            "job": "enrolld"
+          },
+          "values": [
+            [
+              1795529402,
+              "103251968"
+            ],
+            [
+              1795529403,
+              "103219200"
+            ],
+            [
+              1795529404,
+              "111644672"
+            ],
+            [
+              1795529405,
+              "212422656"
+            ]
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "up",
+            "instance": "127.0.0.1:8081",
+            "job": "enrolld"
+          },
+          "values": [
+            [
+              1795529406,
+              "0"
+            ],
+            [
+              1795529407,
+              "0"
+            ],
+            [
+              1795529408,
+              "0"
+            ],
+            [
+              1795529409,
+              "0"
+            ],
+            [
+              1795529410,
+              "0"
+            ],
+            [
+              1795529411,
+              "0"
+            ],
+            [
+              1795529412,
+              "0"
+            ],
+            [
+              1795529413,
+              "0"
+            ],
+            [
+              1795529414,
+              "0"
+            ],
+            [
+              1795529415,
+              "0"
+            ],
+            [
+              1795529416,
+              "0"
+            ],
+            [
+              1795529417,
+              "0"
+            ],
+            [
+              1795529418,
+              "0"
+            ],
+            [
+              1795529419,
+              "0"
+            ],
+            [
+              1795529420,
+              "0"
+            ],
+            [
+              1795529421,
+              "0"
+            ],
+            [
+              1795529422,
+              "0"
+            ]
+          ]
+        }
+      ]
+    }
+  }
+}
