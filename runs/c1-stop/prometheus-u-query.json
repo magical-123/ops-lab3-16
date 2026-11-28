@@ -1,0 +1,26 @@
+{
+  "query": "rate(cgroup_cpu_usage_seconds_total[30s])",
+  "evaluation_time_unix": 1795691286,
+  "evaluation_time_local": "2026-11-26T19:08:06+08:00",
+  "context": "C1 fixed three-instance 172.27 requests/s run, before the kill injection at 19:08:26",
+  "response": {
+    "status": "success",
+    "data": {
+      "resultType": "vector",
+      "result": [
+        {
+          "metric": {"group": "lab3", "instance": "127.0.0.1:8101", "job": "instances"},
+          "value": [1795691286, "0.11932635999999999"]
+        },
+        {
+          "metric": {"group": "lab3", "instance": "127.0.0.1:8102", "job": "instances"},
+          "value": [1795691286, "0.11914371999999998"]
+        },
+        {
+          "metric": {"group": "lab3", "instance": "127.0.0.1:8103", "job": "instances"},
+          "value": [1795691286, "0.11915772000000001"]
+        }
+      ]
+    }
+  }
+}
