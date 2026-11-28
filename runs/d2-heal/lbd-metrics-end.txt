@@ -1,62 +1,62 @@
 # HELP lb_requests_total lbd 转发完的请求数，按实例和状态码分；502 表示转发失败，503 表示没有可用的实例
 # TYPE lb_requests_total counter
-lb_requests_total{backend="127.0.0.1:8101",code="200"} 23060
-lb_requests_total{backend="127.0.0.1:8101",code="502"} 726
-lb_requests_total{backend="127.0.0.1:8101",code="503"} 179
-lb_requests_total{backend="127.0.0.1:8102",code="200"} 22919
-lb_requests_total{backend="127.0.0.1:8102",code="502"} 1416
-lb_requests_total{backend="127.0.0.1:8102",code="503"} 267
-lb_requests_total{backend="127.0.0.1:8103",code="200"} 23109
-lb_requests_total{backend="127.0.0.1:8103",code="502"} 746
-lb_requests_total{backend="127.0.0.1:8103",code="503"} 164
-lb_requests_total{backend="none",code="503"} 10089
+lb_requests_total{backend="127.0.0.1:8101",code="200"} 22878
+lb_requests_total{backend="127.0.0.1:8101",code="502"} 1285
+lb_requests_total{backend="127.0.0.1:8101",code="503"} 193
+lb_requests_total{backend="127.0.0.1:8102",code="200"} 23123
+lb_requests_total{backend="127.0.0.1:8102",code="502"} 718
+lb_requests_total{backend="127.0.0.1:8102",code="503"} 77
+lb_requests_total{backend="127.0.0.1:8103",code="200"} 23120
+lb_requests_total{backend="127.0.0.1:8103",code="502"} 718
+lb_requests_total{backend="127.0.0.1:8103",code="503"} 82
+lb_requests_total{backend="none",code="503"} 10481
 # HELP lb_request_duration_seconds lbd 看到的耗时：从收到请求到转发的响应写完
 # TYPE lb_request_duration_seconds histogram
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.001"} 888
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.002"} 895
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.005"} 12835
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.01"} 22297
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.02"} 23894
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.05"} 23946
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.1"} 23965
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.2"} 23965
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.5"} 23965
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="1"} 23965
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="2"} 23965
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="5"} 23965
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="+Inf"} 23965
-lb_request_duration_seconds_sum{backend="127.0.0.1:8101"} 137.13368825600062
-lb_request_duration_seconds_count{backend="127.0.0.1:8101"} 23965
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.001"} 1584
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.002"} 1587
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.005"} 13650
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.01"} 22723
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.02"} 24365
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.05"} 24435
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.1"} 24486
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.2"} 24555
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.5"} 24601
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="1"} 24602
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="2"} 24602
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="5"} 24602
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="+Inf"} 24602
-lb_request_duration_seconds_sum{backend="127.0.0.1:8102"} 161.5629716209998
-lb_request_duration_seconds_count{backend="127.0.0.1:8102"} 24602
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.001"} 888
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.002"} 895
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.005"} 12817
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.01"} 22254
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.02"} 23985
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.05"} 24019
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.1"} 24019
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.2"} 24019
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.5"} 24019
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="1"} 24019
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="2"} 24019
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="5"} 24019
-lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="+Inf"} 24019
-lb_request_duration_seconds_sum{backend="127.0.0.1:8103"} 136.43999630200057
-lb_request_duration_seconds_count{backend="127.0.0.1:8103"} 24019
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.001"} 1446
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.002"} 1447
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.005"} 13518
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.01"} 22802
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.02"} 24324
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.05"} 24352
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.1"} 24356
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.2"} 24356
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="0.5"} 24356
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="1"} 24356
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="2"} 24356
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="5"} 24356
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8101",le="+Inf"} 24356
+lb_request_duration_seconds_sum{backend="127.0.0.1:8101"} 133.6402244809998
+lb_request_duration_seconds_count{backend="127.0.0.1:8101"} 24356
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.001"} 781
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.002"} 782
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.005"} 12802
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.01"} 22330
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.02"} 23901
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.05"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.1"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.2"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="0.5"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="1"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="2"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="5"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8102",le="+Inf"} 23918
+lb_request_duration_seconds_sum{backend="127.0.0.1:8102"} 134.93205205100085
+lb_request_duration_seconds_count{backend="127.0.0.1:8102"} 23918
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.001"} 787
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.002"} 787
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.005"} 12851
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.01"} 22342
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.02"} 23901
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.05"} 23920
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.1"} 23920
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.2"} 23920
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="0.5"} 23920
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="1"} 23920
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="2"} 23920
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="5"} 23920
+lb_request_duration_seconds_bucket{backend="127.0.0.1:8103",le="+Inf"} 23920
+lb_request_duration_seconds_sum{backend="127.0.0.1:8103"} 135.05459628799844
+lb_request_duration_seconds_count{backend="127.0.0.1:8103"} 23920
 # HELP lb_inflight_requests 正在转发给该实例的请求数
 # TYPE lb_inflight_requests gauge
 lb_inflight_requests{backend="127.0.0.1:8101"} 0
@@ -74,7 +74,7 @@ lb_backend_eligible{backend="127.0.0.1:8102"} 1
 lb_backend_eligible{backend="127.0.0.1:8103"} 1
 # HELP lb_no_backend_total 没有可用实例、直接返回 503 的请求数
 # TYPE lb_no_backend_total counter
-lb_no_backend_total 10089
+lb_no_backend_total 10481
 # HELP lb_events_total 状态变化的次数，按事件分
 # TYPE lb_events_total counter
 lb_events_total{event="added"} 3

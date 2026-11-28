@@ -1,11 +1,11 @@
 名字: d2-heal
-开始: 2026-11-28T13:47:17+08:00
+开始: 2026-11-28T14:15:32+08:00
 主机: Linux 6.8.0-136-generic x86_64
 CPU: 2 个逻辑核；Intel(R) Xeon(R) Gold 6278C CPU @ 2.60GHz
-内存: 3531 MiB，available 2799 MiB
+内存: 3531 MiB，available 2797 MiB
 systemd: systemd 255 (255.4-1ubuntu8.16)
 loadgen: 绑定的核 0；缺口阈值 0.2s
-仓库提交: e64c41b，未提交的改动 5 处
+仓库提交: e64c41b，未提交的改动 4 处
 压测命令: bin/loadgen '-url' 'http://127.0.0.1:8080/api/courses/1' '-plan' '172@480s'
 lbd /config:
 {
@@ -27,7 +27,7 @@ lbd /config:
   "outlier_max_frac": 0.34,
   "outlier_eject": "30s",
   "events": "data/lbd-events.csv",
-  "started": "2026-11-28T13:46:25+08:00"
+  "started": "2026-11-28T14:14:32+08:00"
 }
 lbd /backends:
 [
@@ -72,21 +72,23 @@ scaler /config:
   "down_window": "5m0s",
   "schedule": "",
   "pull": "20s",
+  "slow_over": 0,
+  "slow_wait": "0s",
   "quota_percent": 25,
   "quota_period": "",
   "memory": "64M",
   "cpus": "1",
   "restart": "on-failure",
-  "bin": "/home/lab3_m4/lab3/bin/enrolld",
+  "bin": "/srv/lab3/bin/enrolld",
   "args": "-warmup 10s -work 1000000 -leak-kb 16",
   "env": "",
   "version": "v1",
   "base_port": 8101,
-  "data": "/home/lab3_m4/lab3/data",
+  "data": "/srv/lab3/data",
   "lb": "http://127.0.0.1:8090",
   "prom": "http://127.0.0.1:9090",
   "admin": "127.0.0.1:8091",
-  "started": "2026-11-28T13:46:27+08:00"
+  "started": "2026-11-28T14:14:33+08:00"
 }
 scaler /instances:
 [
@@ -94,22 +96,22 @@ scaler /instances:
     "addr": "127.0.0.1:8101",
     "version": "v1",
     "state": "ready",
-    "created": "13:46:27",
+    "created": "14:14:33",
     "restarts": 0
   },
   {
     "addr": "127.0.0.1:8102",
     "version": "v1",
     "state": "ready",
-    "created": "13:46:27",
+    "created": "14:14:33",
     "restarts": 0
   },
   {
     "addr": "127.0.0.1:8103",
     "version": "v1",
     "state": "ready",
-    "created": "13:46:27",
+    "created": "14:14:33",
     "restarts": 0
   }
 ]
-结束: 2026-11-28T13:55:19+08:00
+结束: 2026-11-28T14:23:34+08:00
